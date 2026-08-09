@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#06101d">
+<title>Challenge Cash PRO 5.1</title>
+<style>
+:root{--bg:#050b14;--p:#0b1728;--p2:#102039;--line:#223b5b;--txt:#f5f8ff;--muted:#8ea2bd;--g:#38e79d;--b:#56a8ff;--y:#ffd45a;--r:#ff6178;--v:#9b7cff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:radial-gradient(circle at 50% -15%,#173c67,#07111f 38%,#03070d 80%);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input{font:inherit}button{border:0;color:inherit;touch-action:manipulation}.app{width:min(100%,570px);margin:auto;padding:14px 13px 35px}.hidden{display:none!important}
+.card{background:linear-gradient(145deg,#102139ee,#081322f5);border:1px solid var(--line);border-radius:23px;box-shadow:0 18px 45px #0007}
+.top{display:flex;justify-content:space-between;align-items:center;margin:3px 0 13px}.brand{display:flex;gap:10px;align-items:center}.logo{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#38e79d,#0da86e);font-size:25px}.brand h1{font-size:18px;margin:0}.brand p{font-size:10px;color:var(--muted);margin:3px 0}.icon{width:44px;height:44px;border-radius:14px;background:#0b1829;border:1px solid var(--line)}
+.profile{display:flex;align-items:center;gap:11px;padding:13px;margin-bottom:10px}.avatar{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(135deg,#a37dff,#4f8fff);font-weight:900;font-size:24px}.profile h3{margin:0 0 3px}.profile p{margin:0;color:var(--muted);font-size:11px}.edit{margin-right:auto;background:#13243a;border:1px solid var(--line);padding:8px 11px;border-radius:11px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}.stat{background:#091625;border:1px solid var(--line);border-radius:16px;text-align:center;padding:10px 4px}.stat span{font-size:9px;color:var(--muted)}.stat b{display:block;font-size:17px;margin-top:2px}.bar{height:7px;background:#07111d;border-radius:99px;overflow:hidden;margin:7px 0 12px}.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--v),var(--b));transition:.25s}
+.section{padding:15px;margin-bottom:11px}.sectitle{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.sectitle b{font-size:15px}.sectitle span{font-size:10px;color:var(--muted)}
+.modegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mode{padding:13px 8px;border-radius:15px;background:#091625;border:1px solid var(--line);text-align:center}.mode b{display:block;font-size:13px}.mode small{display:block;color:var(--muted);font-size:9px;margin-top:4px}.mode.sel{border-color:var(--g);background:#0e3026}
+.challengegrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.pick{padding:11px 9px;text-align:right;border-radius:15px;background:#091625;border:1px solid var(--line);min-height:68px}.pick b{display:block;font-size:11px}.pick small{color:var(--muted);font-size:9px}.pick.sel{border-color:var(--b);background:#102944}
+.levelgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:9px}.lvl{padding:10px 4px;border-radius:13px;background:#091625;border:1px solid var(--line);font-size:10px}.lvl small{display:block;color:var(--muted);font-size:8px;margin-top:3px}.lvl.sel{border-color:var(--y);background:#352b0e}.lvl.lock{opacity:.4}
+.primary{width:100%;height:54px;border-radius:16px;background:linear-gradient(135deg,#42eda3,#12b875);color:#03130b;font-weight:900;margin-top:10px;box-shadow:0 12px 28px #18d58b2e}.secondary{width:100%;height:50px;border-radius:15px;background:#13263d;border:1px solid var(--line);font-weight:800;margin-top:8px}
+.missionrow{display:flex;align-items:center;gap:9px;background:#091625;border:1px solid var(--line);padding:10px;border-radius:14px;margin-top:7px}.mi{width:37px;height:37px;border-radius:11px;background:#152a44;display:grid;place-items:center}.missionrow>div:nth-child(2){flex:1}.missionrow strong{font-size:11px}.missionrow small{display:block;color:var(--muted);font-size:9px;margin-top:2px}.claim{background:#152941;border:1px solid #2a4665;padding:7px 9px;border-radius:10px;font-size:9px}
+.game{padding:13px}.gamehead{display:flex;justify-content:space-between;align-items:center}.round{color:var(--muted);font-size:10px}.timer{font-size:29px;color:var(--y);font-weight:950}.timer.danger{color:var(--r);animation:p .45s infinite alternate}@keyframes p{to{transform:scale(1.08)}}
+.challenge{margin:9px 0;padding:13px;border-radius:17px;background:#10233b;border:1px solid #2a4564}.challenge .type{font-size:10px;color:var(--b)}.challenge h2{font-size:17px;margin:5px 0}.challenge p{font-size:10px;color:var(--muted);margin:0}.arena{height:320px;border-radius:19px;position:relative;overflow:hidden;border:1px dashed #294666;background:linear-gradient(90deg,#ffffff04 1px,transparent 1px),linear-gradient(#ffffff04 1px,transparent 1px);background-size:40px 40px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}.choice{min-height:54px;border-radius:15px;background:#10253e;border:1px solid #2b4765;font-weight:800}.choice:active{transform:scale(.96)}.touch{position:absolute;width:68px;height:68px;border-radius:50%;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,#ffd95d,#f3a700);box-shadow:0 8px 22px #ffbe3c55}.target{position:absolute;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#5da8ff,#766bff);box-shadow:0 8px 22px #4e91ff55;font-size:22px}.seq{text-align:center;padding:34px 10px;font-size:29px;font-weight:900}.seq span{color:var(--y)}
+.result{text-align:center;padding:25px}.result .cup{font-size:58px}.result h2{font-size:26px;margin:5px}.reward{color:var(--y);font-size:18px;font-weight:900}.profilePage{text-align:center;padding:22px}.bigav{width:88px;height:88px;margin:auto;border-radius:28px}.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:13px}.badge{padding:13px 4px;background:#091625;border:1px solid var(--line);border-radius:15px;font-size:10px}.badge b{display:block;font-size:24px;margin-bottom:4px}
+.login{min-height:100vh;display:flex;align-items:center}.loginbox{padding:28px;text-align:center;width:100%}.hero{font-size:55px}.login h2{font-size:30px;margin:5px}.login p{color:var(--muted);line-height:1.7;font-size:12px}.name{width:100%;height:55px;border-radius:16px;border:1px solid var(--line);background:#071321;color:#fff;padding:0 15px;outline:none}.note{font-size:9px;color:var(--muted);margin-top:10px}
+.toast{position:fixed;z-index:99;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;background:#10243b;border:1px solid #315174;padding:11px 16px;border-radius:14px;font-size:12px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:370px){.arena{height:285px}.levelgrid{gap:4px}.lvl{font-size:9px}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<section id="login" class="app login">
+ <div class="card loginbox">
+  <div class="hero">🏆</div><h2>Challenge Cash</h2>
+  <p>PRO 5.1 — Level System<br>10 تحديات × 5 مستويات = 50 مرحلة</p>
+  <input id="nameInput" class="name" maxlength="18" placeholder="اكتب اسم اللاعب">
+  <button class="primary" onclick="login()">دخول إلى اللعبة 🚀</button>
+  <div class="note">تقدمك محفوظ على هذا الجهاز.</div>
+ </div>
+</section>
+
+<main id="app" class="app hidden">
+<header class="top"><div class="brand"><div class="logo">💵</div><div><h1>Challenge Cash</h1><p>PRO 5.1 • LEVEL SYSTEM</p></div></div><button class="icon" onclick="profile()">👤</button></header>
+
+<section class="profile card"><div id="avatar" class="avatar">A</div><div><h3 id="nameText">Player</h3><p>المستوى <b id="playerLevel">1</b> • 💎 <b id="coins">0</b></p></div><button class="edit" onclick="profile()">البروفايل</button></section>
+<div class="stats"><div class="stat"><span>النقاط</span><b id="score">0</b></div><div class="stat"><span>XP</span><b id="xp">0</b></div><div class="stat"><span>الدقة</span><b id="acc">100%</b></div><div class="stat"><span>Streak</span><b id="streak">0</b></div></div>
+<div class="bar"><i id="xpbar"></i></div>
+
+<section id="home">
+ <div class="section card">
+  <div class="sectitle"><b>🗺️ خريطة التحديات</b><span id="selectText">جولة متنوعة</span></div>
+  <div class="modegrid">
+   <button id="allMode" class="mode sel" onclick="mode('all')"><b>🎲 جولة متنوعة</b><small>تدرج تلقائي للصعوبة</small></button>
+   <button id="customMode" class="mode" onclick="mode('custom')"><b>🎯 مخصص</b><small>اختر التحدي والمستوى</small></button>
+  </div>
+  <div id="pickGrid" class="challengegrid hidden"></div>
+  <div id="levelGrid" class="levelgrid hidden"></div>
+  <button class="primary" onclick="start()">ابدأ التحدي 🚀</button>
+ </div>
+
+ <div class="section card">
+  <div class="sectitle"><b>🎯 المهام اليومية</b><span id="missionDone">0/3</span></div>
+  <div class="missionrow"><div class="mi">⚡</div><div><strong>أكمل 3 مراحل</strong><small id="m1">0/3</small></div><button class="claim" onclick="claim(1)">استلام</button></div>
+  <div class="missionrow"><div class="mi">⭐</div><div><strong>اجمع 150 نقطة</strong><small id="m2">0/150</small></div><button class="claim" onclick="claim(2)">استلام</button></div>
+  <div class="missionrow"><div class="mi">🔥</div><div><strong>اربح مستوى بدون أخطاء</strong><small id="m3">غير مكتمل</small></div><button class="claim" onclick="claim(3)">استلام</button></div>
+ </div>
+
+ <section class="game card">
+  <div class="gamehead"><div class="round" id="round">جاهز</div><div class="timer" id="timer">—</div></div>
+  <div class="challenge"><div class="type" id="ctype">🎮 نظام المستويات</div><h2 id="ctitle">اختر التحدي والمستوى</h2><p id="chint">كل مستوى يغير السرعة، عدد العناصر، حجم الهدف، والمكافأة.</p></div>
+  <div id="arena" class="arena"><div class="seq" style="color:var(--muted);font-size:18px">ابدأ من خريطة التحديات 👆</div></div>
+  <div id="choices" class="choices"></div>
+ </section>
+ <button class="secondary" onclick="resetRound()">↻ إعادة الجولة</button>
+</section>
+
+<section id="profilePage" class="hidden">
+ <div class="card profilePage"><div id="bigAvatar" class="avatar bigav">A</div><h2 id="bigName">Player</h2><p style="color:var(--muted)">المستوى <b id="bigLvl">1</b> • 💎 <b id="bigCoins">0</b></p><div class="bar"><i id="bigBar"></i></div><p id="xpText" style="font-size:10px;color:var(--muted)">0 / 100 XP</p><div class="badges"><div class="badge"><b>⚡</b>سريع</div><div class="badge"><b>🎯</b>دقيق</div><div class="badge"><b>🏆</b>بطل</div></div><button class="primary" onclick="back()">العودة</button><button class="secondary" onclick="rename()">تغيير الاسم</button></div>
+</section>
+</main>
+
+<script>
+const KEY="challenge_cash_pro51";
+let S=JSON.parse(localStorage.getItem(KEY)||"null")||{name:"",score:0,coins:0,level:1,xp:0,streak:0,correct:0,attempts:0,completed:0,m1:0,m2:0,m3:false,claimed:[false,false,false],mode:"all",pick:0,lvl:1};
+let timer=0,timerId=null,playing=false,current=null,selectedMode=S.mode,selectedPick=S.pick,selectedLvl=S.lvl,level=1,audio=null;
+
+const C=[
+ {t:"⚡ صيد الذهب",title:"اضغط الذهب وتجنب القنبلة",make:gold},
+ {t:"🎯 الهدف المتحرك",title:"أصِب الهدف قبل أن يهرب",make:target},
+ {t:"🧠 الذاكرة",title:"احفظ النمط ثم اكتشفه",make:memory},
+ {t:"🔢 الحساب",title:"احسب واختر بسرعة",make:math},
+ {t:"🎨 الألوان",title:"اتبع اسم اللون لا شكله",make:colors},
+ {t:"↔️ الاتجاه",title:"اتبع السهم الصحيح",make:direction},
+ {t:"🔤 الحرف المختلف",title:"اعثر على المختلف",make:letter},
+ {t:"🔢 الترتيب",title:"اضغط الأرقام بالترتيب",make:order},
+ {t:"✋ رد الفعل",title:"اضغط في اللحظة المناسبة",make:reaction},
+ {t:"🧩 سؤال سريع",title:"اختر الإجابة الصحيحة",make:quiz}
+];
+const L=[["سهل",60,"🟢"],["متوسط",55,"🔵"],["صعب",50,"🟠"],["خبير",45,"🔴"],["أسطوري",40,"🟣"]];
+
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+function $(x){return document.getElementById(x)}
+function toast(x){let t=$("toast");t.textContent=x;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1700)}
+function beep(f=650,d=.05){try{audio=audio||new(AudioContext||webkitAudioContext)();let o=audio.createOscillator(),g=audio.createGain();o.frequency.value=f;o.type="sine";g.gain.value=.03;o.connect(g);g.connect(audio.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+d);o.stop(audio.currentTime+d)}catch(e){}}
+function login(){let n=$("nameInput").value.trim()||S.name;if(!n)return toast("اكتب اسم اللاعب");S.name=n.slice(0,18);save();$("login").classList.add("hidden");$("app").classList.remove("hidden");ui();buildPicks();renderMode()}
+function ui(){let n=S.name||"Player",$a=n[0].toUpperCase();$("nameText").textContent=n;$("bigName").textContent=n;$("avatar").textContent=$a;$("bigAvatar").textContent=$a;$("score").textContent=S.score;$("coins").textContent=S.coins;$("playerLevel").textContent=S.level;$("bigLvl").textContent=S.level;$("xp").textContent=S.xp;$("bigCoins").textContent=S.coins;$("streak").textContent=S.streak;let a=S.attempts?Math.round(S.correct/S.attempts*100):100;$("acc").textContent=a+"%";$("xpbar").style.width=S.xp+"%";$("bigBar").style.width=S.xp+"%";$("xpText").textContent=S.xp+" / 100 XP";$("m1").textContent=Math.min(3,S.m1)+"/3";$("m2").textContent=Math.min(150,S.score)+"/150";$("m3").textContent=S.m3?"مكتمل":"غير مكتمل";$("missionDone").textContent=S.claimed.filter(Boolean).length+"/3"}
+function profile(){$("home").classList.add("hidden");$("profilePage").classList.remove("hidden");ui()}
+function back(){$("profilePage").classList.add("hidden");$("home").classList.remove("hidden")}
+function rename(){let n=prompt("اسم اللاعب:",S.name);if(n&&n.trim()){S.name=n.trim().slice(0,18);save();ui();toast("تم تغيير الاسم")}}
+function mode(m){selectedMode=m;S.mode=m;save();renderMode()}
+function renderMode(){$("allMode").classList.toggle("sel",selectedMode==="all");$("customMode").classList.toggle("sel",selectedMode==="custom");$("pickGrid").classList.toggle("hidden",selectedMode!=="custom");$("levelGrid").classList.toggle("hidden",selectedMode!=="custom");$("selectText").textContent=selectedMode==="all"?"جولة متنوعة":C[selectedPick].t+" • "+L[selectedLvl-1][0];if(selectedMode==="custom")buildLevels()}
+function buildPicks(){let g=$("pickGrid");g.innerHTML="";C.forEach((c,i)=>{let b=document.createElement("button");b.className="pick"+(i===selectedPick?" sel":"");b.innerHTML="<b>"+c.t+"</b><small>"+(i+1)+"/10 • 5 مستويات</small>";b.onclick=()=>{selectedPick=i;S.pick=i;save();buildPicks();buildLevels();$("selectText").textContent=C[i].t+" • "+L[selectedLvl-1][0]};g.appendChild(b)});buildLevels()}
+function unlocked(l){return l===1||S.level>=l}
+function buildLevels(){let g=$("levelGrid");g.innerHTML="";L.forEach((x,i)=>{let n=i+1,b=document.createElement("button");b.className="lvl"+(n===selectedLvl?" sel ":" ")+(unlocked(n)?"":" lock");b.innerHTML=(unlocked(n)?"":"🔒 ")+"L"+n+" "+x[2]+"<small>"+x[0]+" • "+x[1]+"ث</small>";b.onclick=()=>{if(!unlocked(n))return toast("🔒 ارفع مستواك لفتح هذا المستوى");selectedLvl=n;S.lvl=n;save();buildLevels();$("selectText").textContent=C[selectedPick].t+" • "+x[0]};g.appendChild(b)})}
+function start(){S.completed=0;S.correct=0;S.attempts=0;S.streak=0;save();round(1)}
+function round(n){clearInterval(timerId);playing=true;level=selectedMode==="custom"?selectedLvl:Math.min(5,Math.ceil(n/2));let idx=selectedMode==="custom"?selectedPick:(n-1)%10;current={idx,level};timer=L[level-1][1];$("round").textContent="المرحلة "+n+"/10 • "+L[level-1][2]+" "+L[level-1][0];$("timer").textContent=timer;$("timer").classList.remove("danger");$("ctype").textContent=C[idx].t+" • "+L[level-1][2];$("ctitle").textContent=C[idx].title+" — المستوى "+level;$("chint").textContent="الصعوبة تتغير فعليًا • الوقت "+timer+" ثانية • مكافأة ×"+level;$("arena").innerHTML="";$("choices").innerHTML="";C[idx].make();timerId=setInterval(()=>{timer--;$("timer").textContent=timer;if(timer<=10)$("timer").classList.add("danger");if(timer<=0){clearInterval(timerId);end(false,n)}},1000)}
+function end(win,n){if(!playing)return;playing=false;S.completed++;S.m1++;if(win)S.m3=true;let mult=1+Math.floor((level-1)/2);if(win){S.score+=10*mult;S.coins+=5*level;S.xp+=10*level;S.streak++;S.correct++;beep(900,.12)}else{S.streak=0;beep(180,.08)}S.attempts++;while(S.xp>=100){S.xp-=100;S.level++;toast("🎉 فتحت المستوى "+S.level);beep(1200,.16)}save();ui();if(n>=10){$("arena").innerHTML='<div class="result"><div class="cup">🏆</div><h2>انتهت الجولة!</h2><div class="reward">⭐ '+S.score+' • 💎 '+S.coins+'</div><p style="color:var(--muted)">أكملت 10 مراحل. كل مستوى أعلى أصعب وأعلى مكافأة.</p><button class="primary" onclick="start()">جولة جديدة</button></div>';$("choices").innerHTML="";return}setTimeout(()=>round(n+1),450)}
+function hit(ok){if(!playing)return;S.attempts++;if(ok){S.correct++;S.streak++;let mult=1+Math.floor((level-1)/2);S.score+=2*mult;S.coins+=level;S.xp=Math.min(100,S.xp+2*level);beep(760,.035);float("+");}else{S.streak=0;beep(170,.06)}ui()}
+function float(t){let e=document.createElement("div");e.textContent=t;e.style.cssText="position:absolute;left:45%;top:45%;color:#38e79d;font-size:20px;font-weight:900;animation:fl .5s forwards;pointer-events:none";$("arena").appendChild(e);setTimeout(()=>e.remove(),550)}
+let st=document.createElement("style");st.textContent="@keyframes fl{to{transform:translateY(-45px);opacity:0}}";document.head.appendChild(st)
+function add(text,ok){let b=document.createElement("button");b.className="choice";b.textContent=text;b.onpointerdown=e=>{e.preventDefault();hit(ok);setTimeout(()=>{if(playing){$("choices").innerHTML="";C[current.idx].make()}},100)};$("choices").appendChild(b)}
+function gold(){let a=$("arena");function sp(){if(!playing)return;a.innerHTML="";let b=document.createElement("button"),good=Math.random()>[.2,.27,.35,.43,.52][level-1];b.className="touch";b.textContent=good?"🟡":"💣";let size=Math.max(46,68-level*4);b.style.width=b.style.height=size+"px";b.style.left=Math.random()*(88-size/100*8)+"%";b.style.top=Math.random()*78+"%";b.onpointerdown=e=>{e.preventDefault();hit(good);sp()};a.appendChild(b)}sp()}
+function target(){let a=$("arena");function sp(){if(!playing)return;a.innerHTML="";let b=document.createElement("button");b.className="target";b.textContent="🎯";let s=58-level*7;b.style.width=b.style.height=s+"px";b.style.left=Math.random()*82+"%";b.style.top=Math.random()*78+"%";b.onpointerdown=e=>{e.preventDefault();hit(true);sp()};a.appendChild(b)}sp()}
+function memory(){let digits=2+level,code="";for(let i=0;i<digits;i++)code+=Math.floor(Math.random()*10);$("arena").innerHTML='<div class="seq">'+code+"</div>";setTimeout(()=>{if(!playing)return;$("arena").innerHTML='<div class="seq" style="font-size:19px">احفظ الرقم ثم اختره</div>';let arr=[code];while(arr.length<4){let x=String(Math.floor(Math.random()*Math.pow(10,digits))).padStart(digits,"0");if(!arr.includes(x))arr.push(x)}arr.sort(()=>Math.random()-.5).forEach(x=>add(x,x===code))},700-Math.min(350,level*50))}
+function math(){let max=8+level*15,x=Math.floor(Math.random()*max)+2,y=Math.floor(Math.random()*max)+2,ops=level>=3?["+","-","×","×"]:["+","-","×"],op=ops[Math.floor(Math.random()*ops.length)],ans=op==="+"?x+y:op==="-"?x-y:x*y;$("arena").innerHTML='<div class="seq">'+x+" "+op+" "+y+" = ?</div>";[ans,ans+1,ans-1,ans+level].sort(()=>Math.random()-.5).forEach(v=>add(v,v===ans))}
+function colors(){let cs=["أحمر","أخضر","أزرق","أصفر","بنفسجي"],c=cs[Math.floor(Math.random()*cs.length)];$("arena").innerHTML='<div class="seq" style="font-size:22px">اختر اللون: <span>'+c+"</span></div>";cs.slice(0,level>=3?5:4).forEach(x=>add(x,x===c))}
+function direction(){let ds=["⬆️","⬇️","⬅️","➡️"],d=ds[Math.floor(Math.random()*4)];$("arena").innerHTML='<div class="seq">'+d+"</div>";ds.forEach(x=>add(x,x===d))}
+function letter(){let base=["م","س","ك","ر","ن","ل"],same=base[Math.floor(Math.random()*base.length)],other=base.filter(x=>x!==same)[Math.floor(Math.random()*(base.length-1))],count=7+level*2,arr=Array(count).fill(same);arr[Math.floor(Math.random()*count)]=other;$("arena").innerHTML='<div class="seq" style="font-size:22px">'+arr.join(" ")+"</div>";arr.forEach((x,i)=>add("الحرف "+x,x===other))}
+function order(){let count=3+level,nums=Array.from({length:count},(_,i)=>i+1).sort(()=>Math.random()-.5),next=1;$("arena").innerHTML=nums.map(n=>'<button class="target" data-n="'+n+'" style="position:relative;margin:4px;width:50px;height:50px">'+n+"</button>").join("");[...$("arena").querySelectorAll(".target")].forEach(b=>b.onpointerdown=e=>{e.preventDefault();let n=+b.dataset.n;if(n===next){hit(true);b.style.opacity=.2;next++;if(next===count+1){toast("🔥 ترتيب مثالي");setTimeout(order,120)}}else hit(false)})}
+function reaction(){let a=$("arena"),ready=false;a.innerHTML='<div class="seq" id="react">انتظر...</div>';let delay=800+Math.random()*2200;setTimeout(()=>{if(!playing)return;ready=true;$("react").textContent="اضغط الآن!";$("react").style.color="var(--g)";beep(1000,.08)},delay);a.onpointerdown=()=>{if(ready){hit(true);reaction()}else{hit(false);toast("بكير 😅")}}}
+function quiz(){let q=[[ "عاصمة فرنسا؟",["باريس","روما","مدريد","برلين"],0],["أكبر كوكب؟",["الأرض","المريخ","المشتري","عطارد"],2],["ناتج 8×7؟",["54","56","64","72"],1],["الكوكب الأحمر؟",["الزهرة","المريخ","زحل","نبتون"],1]];let z=q[Math.floor(Math.random()*q.length)];$("arena").innerHTML='<div class="seq" style="font-size:20px">'+z[0]+"</div>";z[1].forEach((x,i)=>add(x,i===z[2]))}
+function claim(n){if(S.claimed[n-1])return toast("تم استلامها");let ok=n===1?S.m1>=3:n===2?S.score>=150:S.m3;if(!ok)return toast("المهمة لم تكتمل");S.claimed[n-1]=true;S.coins+=25;save();ui();toast("🎁 +25 💎")}
+function resetRound(){clearInterval(timerId);playing=false;$("arena").innerHTML='<div class="seq" style="color:var(--muted);font-size:18px">اختر التحدي والمستوى ثم ابدأ 🚀</div>';$("choices").innerHTML="";$("timer").textContent="—";$("round").textContent="جاهز";$("timer").classList.remove("danger");toast("تم إيقاف الجولة")}
+window.addEventListener("beforeunload",save);
+</script>
+</body>
+</html>
