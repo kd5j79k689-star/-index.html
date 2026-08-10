@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>تحديات سريعة PRO - البروفايل والأرباح</title>
+<title>تحديات سريعة PRO</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#030712;color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}
-button{border:0;color:inherit;cursor:pointer;transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);}
+button{border:0;color:inherit;cursor:pointer;transition: all 0.2s ease; position: relative; z-index: 10;}
 button:active:not(:disabled) {transform: scale(0.96);}
 button:disabled {opacity: 0.5; cursor: not-allowed;}
 .hidden{display:none!important}
@@ -17,42 +17,30 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 :root{
   --g:#10b981; --g-glow: rgba(16, 185, 129, 0.4);
   --b:#3b82f6; --b-glow: rgba(59, 130, 246, 0.4);
-  --p:#0f172a; --l:#1e293b; --m:#94a3b8; 
-  --r:#f43f5e; --y:#f59e0b; --gold:#fbbf24; --gold-glow: rgba(251, 191, 36, 0.4);
+  --m:#94a3b8; --r:#f43f5e; --gold:#fbbf24; --gold-glow: rgba(251, 191, 36, 0.4);
   --usdt:#14b8a6; --usdt-glow: rgba(20, 184, 166, 0.4);
 }
 
-.app{width:min(100%,620px);margin:auto;padding:14px; animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
-.card{background:linear-gradient(145deg,#0b1329,#060b18);border:1px solid #1e293b;border-radius:24px;box-shadow:0 20px 40px -15px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05)}
+.app{width:min(100%,620px);margin:auto;padding:14px; animation: fadeIn 0.4s ease;}
+.card{background:linear-gradient(145deg,#0b1329,#060b18);border:1px solid #1e293b;border-radius:24px;box-shadow:0 20px 40px -15px rgba(0,0,0,0.7)}
 
-/* تسجيل الدخول */
-.login{min-height:100vh;display:grid;place-items:center;padding:18px; animation: fadeIn 0.4s ease-out;}
+.login{min-height:100vh;display:grid;place-items:center;padding:18px;}
 .login .card{width:min(100%,430px);padding:30px 24px;text-align:center}
 .logo,.mini{display:grid;place-items:center;background:linear-gradient(135deg,#34d399,#059669);color:#022c22;box-shadow: 0 0 25px var(--g-glow);}
-.logo{width:76px;height:76px;margin:auto;border-radius:24px;font-size:38px; animation: pulseGlow 3s infinite;}
+.logo{width:76px;height:76px;margin:auto;border-radius:24px;font-size:38px}
 
-.input,.select{width:100%;padding:14px;margin-top:10px;border-radius:16px;border:1px solid #334155;background:#090e1d;color:white;outline:0; transition: all 0.3s;}
+.input,.select{width:100%;padding:14px;margin-top:10px;border-radius:16px;border:1px solid #334155;background:#090e1d;color:white;outline:0; position: relative; z-index: 10;}
 .input:focus,.select:focus{border-color:var(--g); box-shadow: 0 0 12px var(--g-glow)}
 
-.primary,.secondary,.gold-btn,.usdt-btn{width:100%;padding:15px;border-radius:16px;font-weight:800;margin-top:12px; position: relative; overflow: hidden;}
+.primary,.secondary,.gold-btn,.usdt-btn{width:100%;padding:15px;border-radius:16px;font-weight:800;margin-top:12px; overflow: hidden;}
 .primary{background:linear-gradient(135deg,#34d399,#059669);color:#022c22;box-shadow: 0 6px 20px var(--g-glow)}
 .secondary{background:#111c38;border:1px solid #2a3c5e; color: #f8fafc;}
 .gold-btn{background:linear-gradient(135deg,#fbbf24,#d97706);color:#1c1000; box-shadow: 0 6px 20px var(--gold-glow)}
 .usdt-btn{background:linear-gradient(135deg,#2dd4bf,#0d9488);color:#00231d; box-shadow: 0 6px 20px var(--usdt-glow)}
 
-/* تأثير اللمعان المتحرك على الأزرار المهمة */
-.primary::after, .gold-btn::after, .usdt-btn::after {
-  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-  background: linear-gradient(60deg, transparent, rgba(255,255,255,0.15), transparent);
-  transform: rotate(30deg) translateX(-100%);
-  animation: shimmer 4s infinite linear;
-}
-@keyframes shimmer { 0% { transform: rotate(30deg) translateX(-100%); } 20% { transform: rotate(30deg) translateX(100%); } 100% { transform: rotate(30deg) translateX(100%); } }
-
 .switch{margin-top:14px;background:transparent;color:#34d399;font-size:13px; font-weight: 600;}
 .muted{color:var(--m);font-size:12px;line-height:1.7}
 
-/* التصميم الداخلي والهيدر */
 .top,.row,.profile,.profileLeft{display:flex;align-items:center}
 .top,.row,.profile{justify-content:space-between}
 .top{margin-bottom:14px}
@@ -62,109 +50,91 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .brand small{color:var(--m); font-weight: 600;}
 .profile{padding:14px 16px}
 .profileLeft{gap:12px}
-.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#3b82f6);font-weight:900;box-shadow: 0 0 15px var(--b-glow);}
+.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#3b82f6);font-weight:900;}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
-.stat{text-align:center;background:linear-gradient(145deg,#0d152c,#080e1d);border:1px solid #1e293b;border-radius:16px;padding:10px 4px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.03)}
+.stat{text-align:center;background:linear-gradient(145deg,#0d152c,#080e1d);border:1px solid #1e293b;border-radius:16px;padding:10px 4px}
 .stat span{display:block;color:var(--m);font-size:10px; margin-bottom: 3px; font-weight: 600;}
 .stat b{font-size:15px; color: #60a5fa;}
-.ticket-stat b{color: var(--gold); text-shadow: 0 0 10px var(--gold-glow);}
+.ticket-stat b{color: var(--gold);}
 
-.hero{padding:26px 20px;text-align:center; position: relative; overflow: hidden;}
-.hero .emoji{font-size:52px; margin-bottom: 8px; display: inline-block; animation: bounce 2s infinite; filter: drop-shadow(0 10px 15px rgba(251,191,36,0.3));}
-.hero h2{margin:6px 0; font-size: 22px; font-weight: 900; letter-spacing: -0.5px;}
-.hero p{color:var(--m);font-size:13px;line-height:1.7}
+.hero{padding:26px 20px;text-align:center}
+.hero .emoji{font-size:52px; margin-bottom: 8px;}
+.hero h2{margin:6px 0; font-size: 22px; font-weight: 900;}
 .title{font-size:19px;font-weight:900;margin:16px 2px 10px}
 
-/* شبكة الأزرار الرئيسية */
 .nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
-
-/* المتجر وسحب الأرباح */
 .store-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px;}
 .store-item{background:linear-gradient(145deg,#111c38,#0b1329); border: 1px solid #2a3c5e; padding: 16px; border-radius: 18px; display: flex; justify-content: space-between; align-items: center;}
 .store-item-info h4{margin: 0 0 4px; color: #fff; font-size: 15px;}
 .store-item-info p{margin: 0; font-size: 11px; color: var(--m);}
 
-.ad-overlay{position:fixed;inset:0;background:rgba(3,7,18,0.92);z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white; backdrop-filter: blur(8px);}
-.ad-loader{width:56px;height:56px;border:4px solid #1e293b;border-top-color:#34d399;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px; box-shadow: 0 0 20px var(--g-glow);}
+.ad-overlay,.modal-overlay{position:fixed;inset:0;background:rgba(3,7,18,0.92);z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white; backdrop-filter: blur(6px);}
+.modal-overlay{background:rgba(3,7,18,0.88); z-index:90;}
+.modal-card{width:min(100%,450px);background:linear-gradient(145deg,#0b152e,#070d1d);border:1px solid #2a3c5e;border-radius:24px;padding:24px;text-align:right;}
+.ad-loader{width:56px;height:56px;border:4px solid #1e293b;border-top-color:#34d399;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;}
 
-/* نافذة السحب المنبثقة */
-.modal-overlay{position:fixed;inset:0;background:rgba(3,7,18,0.88);z-index:90;display:flex;justify-content:center;align-items:center;padding:15px; backdrop-filter: blur(6px);}
-.modal-card{width:min(100%,450px);background:linear-gradient(145deg,#0b152e,#070d1d);border:1px solid #2a3c5e;border-radius:24px;padding:24px;text-align:right; box-shadow: 0 25px 50px rgba(0,0,0,0.8);}
-
-/* المستويات */
 .levels{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.level{padding:18px;text-align:right;border-radius:18px;background:linear-gradient(145deg,#0d152c,#080e1d);border:1px solid #1e293b; transition: all 0.25s;}
-.level.active{border-color:#34d399; background: linear-gradient(145deg,#0d2426,#081318); box-shadow: 0 0 20px var(--g-glow);}
+.level{padding:18px;text-align:right;border-radius:18px;background:linear-gradient(145deg,#0d152c,#080e1d);border:1px solid #1e293b;}
+.level.active{border-color:#34d399; background: linear-gradient(145deg,#0d2426,#081318);}
 .level h3{margin:0 0 4px; font-size: 16px;}
 .level p{margin:0;color:var(--m);font-size:11px}
 
-/* منطقة اللعب */
 .challengeHead{padding:14px 18px}
-.timer{font-size:32px;font-weight:900;color:#34d399; transition: color 0.3s; text-shadow: 0 0 15px var(--g-glow);}
-.danger{color:var(--r)!important; animation: pulse 0.5s infinite; text-shadow: 0 0 15px rgba(244,63,94,0.5)!important;}
+.timer{font-size:32px;font-weight:900;color:#34d399;}
+.danger{color:var(--r)!important;}
 .progress{height:8px;background:#111c38;border-radius:20px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#34d399);width:100%; transition: width 1s linear; box-shadow: 0 0 10px var(--g-glow);}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#34d399);width:100%; transition: width 1s linear;}
 
-.gamebox{margin-top:12px;min-height:430px;padding:16px;overflow:hidden; animation: fadeInScale 0.3s ease-out; position: relative;}
+.gamebox{margin-top:12px;min-height:430px;padding:16px;position: relative;}
 .gameTitle{text-align:center}
 .gameTitle h2{font-size:20px;margin:4px}
 .gameTitle p{margin:0;color:var(--m);font-size:12px}
-.arena{height:315px;margin-top:14px;border-radius:20px;background:radial-gradient(circle at 50% 20%,#11223e,#050a14 75%);border:1px solid #1e3a5f;position:relative;overflow:hidden; touch-action: none; box-shadow: inset 0 0 30px rgba(0,0,0,0.6);}
+.arena{height:315px;margin-top:14px;border-radius:20px;background:#050a14;border:1px solid #1e3a5f;position:relative;overflow:hidden; touch-action: none;}
 
-.target{position:absolute;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,#34d399 35%,#047857);color:#022c22;font-weight:1000;box-shadow:0 0 25px var(--g-glow)}
-.bomb,.coin,.player,.obstacle{position:absolute}
-.bomb{border-radius:50%;font-size:26px;background:transparent; display:grid; place-items:center;}
-.coin{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fef08a,#d97706);color:#422006;box-shadow:0 0 20px rgba(251,191,36,0.6); font-size: 20px;}
-.player{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#60a5fa,#6366f1);display:grid;place-items:center;font-size:24px; box-shadow: 0 0 20px var(--b-glow); z-index: 10;}
-.obstacle{border-radius:10px;background:linear-gradient(135deg,#f43f5e,#9f1239); box-shadow: 0 0 15px rgba(244,63,94,0.6);}
+.target{position:absolute;border-radius:50%;display:grid;place-items:center;background:#34d399;color:#022c22;font-weight:bold}
+.coin,.player,.obstacle{position:absolute}
+.coin{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fbbf24;color:#422006;font-size: 20px;}
+.player{width:46px;height:46px;border-radius:14px;background:#60a5fa;display:grid;place-items:center;font-size:24px; z-index: 10;}
+.obstacle{border-radius:10px;background:#f43f5e;}
 
 .feedback{text-align:center;min-height:24px;color:var(--m);font-size:14px;font-weight: bold;padding-top:10px}
-.revive-menu{position:absolute;inset:0;background:rgba(3,7,18,0.95);z-index:50;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center; border-radius: 20px; backdrop-filter: blur(8px);}
-.revive-menu h3{color:var(--r);font-size:26px;margin-bottom:10px; text-shadow: 0 0 15px rgba(244,63,94,0.5);}
-.revive-menu p{color:#fff;margin-bottom:20px;}
-
+.revive-menu{position:absolute;inset:0;background:rgba(3,7,18,0.95);z-index:50;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center; border-radius: 20px;}
 .result{text-align:center;padding:30px 20px}
-.result .big{font-size:70px; margin-bottom: 12px; animation: bounce 2s infinite; filter: drop-shadow(0 10px 20px rgba(251,191,36,0.4));}
-.reward{color:var(--gold);font-weight:900;margin:14px 0; font-size: 19px; background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); padding: 12px; border-radius: 14px; text-shadow: 0 0 10px var(--gold-glow);}
+.result .big{font-size:70px; margin-bottom: 12px;}
+.reward{color:var(--gold);font-weight:900;margin:14px 0; font-size: 19px; background: rgba(251,191,36,0.08); padding: 12px; border-radius: 14px;}
 
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:#0d152c;border:1px solid #334155;padding:14px 20px;border-radius:16px;transition:.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);z-index:999; box-shadow: 0 15px 35px rgba(0,0,0,0.7); font-weight: 600;}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:#0d152c;border:1px solid #334155;padding:14px 20px;border-radius:16px;transition:.3s;z-index:999; font-weight: 600;}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeInScale { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-@keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 20px var(--g-glow); } 50% { box-shadow: 0 0 35px var(--g-glow), inset 0 0 15px rgba(255,255,255,0.3); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
-<!-- شاشة الإعلان الوهمية -->
 <div id="adScreen" class="ad-overlay hidden">
   <div class="ad-loader"></div>
   <h2>جاري عرض الإعلان... 🎥</h2>
   <p id="adTimer">يرجى الانتظار 5 ثوانٍ</p>
 </div>
 
-<!-- نافذة سحب الأرباح عبر USDT -->
 <div id="withdrawModal" class="modal-overlay hidden">
   <div class="modal-card">
     <h2 style="margin-top:0; color: var(--usdt);">💸 سحب الأرباح (USDT)</h2>
-    <p class="muted">الحد الأدنى للسحب هو 20$ (أو ما يعادلها بالعملات)</p>
+    <p class="muted">الحد الأدنى للسحب هو 20$</p>
     
-    <label class="muted" style="display:block; margin-top:12px;">اختر شبكة التحويل:</label>
+    <label class="muted" style="display:block; margin-top:12px;">شبكة التحويل:</label>
     <select id="networkSelect" class="select">
-      <option value="TRC20">Tron (TRC20) - الأسرع رسوماً</option>
+      <option value="TRC20">Tron (TRC20)</option>
       <option value="ERC20">Ethereum (ERC20)</option>
       <option value="BEP20">Binance Smart Chain (BEP20)</option>
     </select>
 
-    <label class="muted" style="display:block; margin-top:12px;">عنوان المحفظة (Wallet Address):</label>
-    <input id="walletInput" class="input" placeholder="أدخل عنوان محفظتك هنا (مثل: T...)">
+    <label class="muted" style="display:block; margin-top:12px;">عنوان المحفظة:</label>
+    <input id="walletInput" class="input" placeholder="T...">
 
-    <label class="muted" style="display:block; margin-top:12px;">المبلغ المراد سحبه ($):</label>
+    <label class="muted" style="display:block; margin-top:12px;">المبلغ ($):</label>
     <input id="amountInput" class="input" type="number" min="20" placeholder="20">
 
     <button class="usdt-btn" onclick="submitWithdrawal()">تأكيد طلب السحب 🚀</button>
@@ -176,7 +146,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
   <div class="card">
     <div class="logo">⚡</div>
     <h1>تحديات سريعة PRO</h1>
-    <p id="authDesc" class="muted">العب، نافس، واربح 20$ أسبوعياً.</p>
+    <p class="muted">العب، نافس، واربح أسبوعياً.</p>
     <div id="nameBox"><input id="name" class="input" placeholder="اسم اللاعب"></div>
     <input id="email" class="input" type="email" placeholder="البريد الإلكتروني">
     <input id="password" class="input" type="password" placeholder="كلمة المرور">
@@ -195,7 +165,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
         <small>جائزة الأسبوع: 20$ 💰</small>
       </div>
     </div>
-    <b id="levelBadge" style="background: #1e293b; color: #34d399; border: 1px solid #334155; padding: 6px 14px; border-radius: 14px; font-size: 12px; box-shadow: 0 0 10px rgba(52,211,153,0.15);">سهل</b>
+    <b id="levelBadge" style="background: #1e293b; color: #34d399; border: 1px solid #334155; padding: 6px 14px; border-radius: 14px; font-size: 12px;">سهل</b>
   </div>
 
   <div class="card profile">
@@ -203,13 +173,12 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
       <div id="avatar" class="avatar">A</div>
       <div>
         <b id="playerName" style="font-size: 15px;">لاعب</b>
-        <div id="meta" class="muted">مسجل النظام</div>
+        <div class="muted">مسجل النظام</div>
       </div>
     </div>
     <button class="secondary" style="width:auto;margin:0;padding:8px 16px; border-radius: 12px; font-size: 13px;" onclick="logout()">خروج</button>
   </div>
 
-  <!-- الشاشة الرئيسية -->
   <section id="home">
     <div class="stats">
       <div class="stat"><span>النقاط</span><b id="score">0</b></div>
@@ -221,7 +190,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
     <div class="card hero">
       <div class="emoji">🏆</div>
       <h2>البطولة الأسبوعية</h2>
-      <p style="color: var(--gold); font-weight: bold; text-shadow: 0 0 10px var(--gold-glow);">اربح 20$ بصمودك لـ 30 ثانية</p>
+      <p style="color: var(--gold); font-weight: bold;">اربح 20$ بصمودك لـ 30 ثانية</p>
       
       <div style="display:flex; gap:10px; margin-top:16px; flex-direction:column;">
         <button class="gold-btn" onclick="setMode('avoid')">🎟️ بطولة البقاء (تتطلب تذكرة)</button>
@@ -234,21 +203,17 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
     </div>
   </section>
 
-  <!-- صفحة البروفايل المتكاملة -->
   <section id="profilePage" class="hidden">
     <div class="card hero" style="text-align: right;">
       <h2 style="text-align: center;">👤 ملف اللاعب الشخصي</h2>
-      <p style="text-align: center;">إدارة الحساب، المعلومات الشخصية، والأرباح.</p>
-      
-      <div style="background: linear-gradient(145deg,#0d152c,#080e1d); border: 1px solid #2a3c5e; padding: 18px; border-radius: 18px; margin-top: 16px; text-align: right; box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);">
-        <p style="margin: 8px 0;"><b>اسم اللاعب:</b> <span id="profName" style="color: #60a5fa;">-</span></p>
-        <p style="margin: 8px 0;"><b>البريد الإلكتروني:</b> <span id="profEmail" style="color: #94a3b8;">-</span></p>
-        <p style="margin: 8px 0;"><b>المستوى الحالي:</b> <span id="profLevel" style="color: #34d399;">-</span></p>
-        <p style="margin: 8px 0;"><b>إجمالي النقاط:</b> <span id="profScore" style="color: #60a5fa;">0</span></p>
-        <p style="margin: 8px 0;"><b>رصيد العملات والجوائز:</b> <span id="profCoins" style="color: #34d399;">0</span> 🪙</p>
-        <p style="margin: 8px 0;"><b>رصيد التذاكر الذهبية:</b> <span id="profTickets" style="color: var(--gold);">0</span> 🎫</p>
+      <div style="background: #0d152c; border: 1px solid #2a3c5e; padding: 18px; border-radius: 18px; margin-top: 16px;">
+        <p><b>اسم اللاعب:</b> <span id="profName">-</span></p>
+        <p><b>البريد:</b> <span id="profEmail">-</span></p>
+        <p><b>المستوى:</b> <span id="profLevel">-</span></p>
+        <p><b>النقاط:</b> <span id="profScore">0</span></p>
+        <p><b>العملات:</b> <span id="profCoins">0</span> 🪙</p>
+        <p><b>التذاكر:</b> <span id="profTickets">0</span> 🎫</p>
       </div>
-
       <div style="margin-top: 16px;">
         <button class="usdt-btn" onclick="openWithdrawModal()">💸 سحب الأرباح عبر USDT</button>
         <button class="secondary" onclick="home()" style="margin-top: 10px;">الرئيسية 🏠</button>
@@ -256,12 +221,9 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
     </div>
   </section>
 
-  <!-- متجر التذاكر -->
   <section id="store" class="hidden">
     <div class="card hero" style="text-align: right;">
       <h2 style="text-align: center;">متجر التذاكر 🎫</h2>
-      <p style="text-align: center;">احصل على تذاكر للمشاركة في بطولة الجائزة الكبرى.</p>
-      
       <div class="store-grid">
         <div class="store-item">
           <div class="store-item-info">
@@ -270,13 +232,12 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
           </div>
           <button class="primary" style="width: auto; margin: 0; padding: 10px 16px;" onclick="watchAdForTicket()">مشاهدة 🎥</button>
         </div>
-        
         <div class="store-item">
           <div class="store-item-info">
             <h4>3 تذاكر ذهبية</h4>
             <p>دعم اللعبة والاستمرار</p>
           </div>
-          <button class="gold-btn" style="width: auto; margin: 0; padding: 10px 16px;" onclick="buyTickets()">1.00$ 💳</button>
+          <button class="gold-btn" style="width: auto; margin: 0; padding: 10px 16px;" onclick="buyTickets()">شراء 💳</button>
         </div>
       </div>
       <button class="secondary" onclick="home()" style="margin-top: 16px;">الرئيسية 🏠</button>
@@ -325,11 +286,17 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 <script>
 const SUPABASE_URL = "https://hchporijrjgmcfayobpv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_sWU3nxqG1TiZ7hdu6bm5Xg_0at1AMEr";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let db;
+
+try {
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} catch(e) {
+  console.error("Supabase initialization error:", e);
+}
 
 let mode = "register", playMode = "classic", mainTimer = null, time = 30, ri = 0, locked = false;
 let roundScore = 0, roundXp = 0, roundCoins = 0;
-let S = {user: null, name: "", email: "", score: 0, xp: 0, coins: 0, level: 0, tickets: 0};
+let S = {user: null, name: "", email: "", score: 0, xp: 0, coins: 0, level: 0, tickets: 3};
 
 let activeIntervals = [];
 let activeTimeouts = [];
@@ -338,13 +305,22 @@ const LV = [["سهل", 1], ["متوسط", 1.45], ["صعب", 2], ["خبير", 2.7
 const $ = id => document.getElementById(id);
 
 function toast(t) {
-  $("toast").textContent = t; $("toast").classList.add("show");
-  clearTimeout(window.tt); window.tt = setTimeout(() => $("toast").classList.remove("show"), 3000);
+  const tEl = $("toast");
+  if(!tEl) return;
+  tEl.textContent = t; tEl.classList.add("show");
+  clearTimeout(window.tt); 
+  window.tt = setTimeout(() => tEl.classList.remove("show"), 3000);
 }
+
 function show(id) {
-  ["home", "levels", "play", "result", "store", "profilePage"].forEach(x => $(x).classList.add("hidden"));
-  $(id).classList.remove("hidden");
+  ["home", "levels", "play", "result", "store", "profilePage"].forEach(x => {
+    const el = $(x);
+    if(el) el.classList.add("hidden");
+  });
+  const target = $(id);
+  if(target) target.classList.remove("hidden");
 }
+
 function switchAuth() {
   mode = mode === "register" ? "login" : "register";
   $("nameBox").classList.toggle("hidden", mode === "login");
@@ -354,54 +330,89 @@ function switchAuth() {
 }
 
 async function auth() {
+  if(!db) return toast("خطأ في الاتصال بقاعدة البيانات");
   const email = $("email").value.trim(), pass = $("password").value, name = $("name").value.trim();
-  if(!email || !pass) return toast("أدخل البيانات كاملة");
-  $("authBtn").disabled = true; $("authMsg").textContent = "جاري الاتصال...";
+  if(!email || !pass) return toast("أدخل البريد وكلمة المرور كاملة");
+  
+  $("authBtn").disabled = true; 
+  $("authMsg").textContent = "جاري الاتصال...";
+  
   try {
     let result;
     if(mode === "register") {
-      result = await db.auth.signUp({ email, password: pass, options: { data: { username: name } } });
+      result = await db.auth.signUp({ email, password: pass, options: { data: { username: name || "لاعب" } } });
       if(result.error) throw result.error;
-      S.user = result.data.user; S.name = name; S.email = email;
+      S.user = result.data.user; 
+      S.name = name || "لاعب";
     } else {
       result = await db.auth.signInWithPassword({ email, password: pass });
       if(result.error) throw result.error;
-      S.user = result.data.user; S.email = result.data.user.email; S.name = result.data.user.user_metadata?.username || "لاعب";
+      S.user = result.data.user; 
+      S.email = result.data.user.email; 
+      S.name = result.data.user.user_metadata?.username || "لاعب";
     }
-    await loadPlayer(); openGame(); $("authMsg").textContent = "";
+    await loadPlayer(); 
+    openGame(); 
+    $("authMsg").textContent = "";
   } catch(e) {
-    $("authMsg").textContent = "خطأ: " + (e.message); toast(e.message);
-  } finally { $("authBtn").disabled = false; }
+    $("authMsg").textContent = "خطأ: " + (e.message || "فشل المصادقة"); 
+    toast(e.message || "حدث خطأ");
+  } finally { 
+    $("authBtn").disabled = false; 
+  }
 }
 
 async function loadPlayer() {
+  if(!S.user?.id) return;
   S.email = S.user.email;
-  const r = await db.from("players").select("*").eq("player_key", S.user.id).maybeSingle();
-  if(!r.data) {
-    const insertResult = await db.from("players").insert({
-      player_key: S.user.id, username: S.name || "لاعب", tickets: 3
-    }).select("*").single();
-    if(!insertResult.error) r.data = insertResult.data;
+  try {
+    const r = await db.from("players").select("*").eq("player_key", S.user.id).maybeSingle();
+    let d = r.data;
+    if(!d) {
+      const insertResult = await db.from("players").insert({
+        player_key: S.user.id, username: S.name || "لاعب", tickets: 3
+      }).select("*").single();
+      if(!insertResult.error) d = insertResult.data;
+    }
+    if(d) {
+      S.name = d.username || S.name || "لاعب";
+      S.score = Number(d.score) || 0; 
+      S.xp = Number(d.xp) || 0; 
+      S.coins = Number(d.coins) || 0;
+      S.level = Math.max(0, Math.min(3, Number(d.level) || 0));
+      S.tickets = Number(d.tickets) ?? 3; 
+    }
+  } catch(err) {
+    console.error("Load player error:", err);
   }
-  const d = r.data || {};
-  S.name = d.username || S.name || "لاعب";
-  S.score = Number(d.score) || 0; S.xp = Number(d.xp) || 0; S.coins = Number(d.coins) || 0;
-  S.level = Math.max(0, Math.min(3, Number(d.level) || 0));
-  S.tickets = Number(d.tickets) || 0; 
 }
 
 async function save() {
-  if(!S.user?.id) return;
-  await db.from("players").update({
-    xp: S.xp, coins: S.coins, score: S.score, level: S.level, tickets: S.tickets
-  }).eq("player_key", S.user.id);
+  if(!S.user?.id || !db) return;
+  try {
+    await db.from("players").update({
+      xp: S.xp, coins: S.coins, score: S.score, level: S.level, tickets: S.tickets
+    }).eq("player_key", S.user.id);
+  } catch(e) {
+    console.error("Save error:", e);
+  }
 }
 
-function openGame() { $("login").classList.add("hidden"); $("game").classList.remove("hidden"); update(); home(); }
+function openGame() { 
+  $("login").classList.add("hidden"); 
+  $("game").classList.remove("hidden"); 
+  update(); 
+  home(); 
+}
+
 function update() { 
-  $("playerName").textContent = S.name; $("avatar").textContent = S.name[0]?.toUpperCase() || "A"; 
-  $("score").textContent = S.score; $("xp").textContent = S.xp; $("coins").textContent = S.coins;
-  $("tickets").textContent = S.tickets + " 🎫"; $("levelBadge").textContent = LV[S.level][0]; 
+  $("playerName").textContent = S.name; 
+  $("avatar").textContent = S.name[0]?.toUpperCase() || "A"; 
+  $("score").textContent = S.score; 
+  $("xp").textContent = S.xp; 
+  $("coins").textContent = S.coins;
+  $("tickets").textContent = S.tickets + " 🎫"; 
+  $("levelBadge").textContent = LV[S.level][0]; 
 }
 
 function home() { cleanupGameEvents(); clearInterval(mainTimer); show("home"); update(); }
@@ -417,7 +428,6 @@ function showProfile() {
   show("profilePage");
 }
 
-/* دوال نافذة السحب عبر USDT */
 function openWithdrawModal() { $("withdrawModal").classList.remove("hidden"); }
 function closeWithdrawModal() { $("withdrawModal").classList.add("hidden"); }
 
@@ -426,12 +436,9 @@ function submitWithdrawal() {
   const wallet = $("walletInput").value.trim();
   const amount = Number($("amountInput").value);
 
-  if(!wallet) return toast("يرجى إدخال عنوان المحفظة بشكل صحيح");
+  if(!wallet) return toast("يرجى إدخال عنوان المحفظة");
   if(!amount || amount < 20) return toast("الحد الأدنى للسحب هو 20$");
-
-  if(S.coins < amount) {
-    return toast("رصيدك الحالي غير كافٍ لإتمام عملية السحب!");
-  }
+  if(S.coins < amount) return toast("رصيدك الحالي غير كافٍ للسحب!");
 
   S.coins -= amount;
   save(); update();
@@ -450,8 +457,17 @@ function setMode(m) {
   show("levels");
 }
 
-function setLevel(n) { S.level = n; document.querySelectorAll(".level").forEach((x, i) => x.classList.toggle("active", i === n)); update(); save(); }
-async function logout() { await db.auth.signOut(); location.reload(); }
+function setLevel(n) { 
+  S.level = n; 
+  document.querySelectorAll(".level").forEach((x, i) => x.classList.toggle("active", i === n)); 
+  update(); 
+  save(); 
+}
+
+async function logout() { 
+  if(db) await db.auth.signOut(); 
+  location.reload(); 
+}
 
 function cleanupGameEvents() {
   activeIntervals.forEach(clearInterval); activeIntervals = [];
@@ -460,6 +476,7 @@ function cleanupGameEvents() {
   const arena = $("arena");
   if(arena) { arena.onmousemove = null; arena.ontouchmove = null; arena.onclick = null; }
 }
+
 function registerInterval(fn, delay) { const id = setInterval(fn, delay); activeIntervals.push(id); return id; }
 function registerTimeout(fn, delay) { const id = setTimeout(fn, delay); activeTimeouts.push(id); return id; }
 
@@ -498,8 +515,8 @@ function watchAdForTicket() {
 }
 
 function buyTickets() {
-  toast("سيتم ربط بوابة الدفع قريباً. (تجريبي: تمت إضافة 3 تذاكر)");
   S.tickets += 3; save(); update();
+  toast("تمت إضافة 3 تذاكر بنجاح!");
 }
 
 function next() {
@@ -514,13 +531,13 @@ function next() {
 }
 
 function setupBase(desc) { $("gameDesc").textContent = desc; return $("arena"); }
-function pos(e, s) { e.style.width = s + "px"; e.style.height = s + "px"; e.style.left = (5 + Math.random() * 80) + "%"; e.style.top = (5 + Math.random() * 75) + "%"; }
 
 function startTimer() {
   clearInterval(mainTimer);
   mainTimer = setInterval(() => {
     time--; 
-    $("timer").textContent = time; $("timerBar").style.width = (time / 30 * 100) + "%"; 
+    $("timer").textContent = time; 
+    $("timerBar").style.width = (time / 30 * 100) + "%"; 
     $("timer").classList.toggle("danger", time <= 7); 
     if(time <= 0) { 
       clearInterval(mainTimer); mainTimer = null; 
@@ -528,16 +545,27 @@ function startTimer() {
       else winAvoidMarathon();
     }
   }, 1000);
-  $("timer").textContent = time; $("timerBar").style.width = (time / 30 * 100) + "%";
+  $("timer").textContent = time; 
+  $("timerBar").style.width = (time / 30 * 100) + "%";
 }
 
 function gameTarget() {
   let a = setupBase("اضغط الهدف الأخضر."); let c=0;
-  function sp() { if(locked) return; a.innerHTML=""; let t = document.createElement("button"); t.className="target"; pos(t,50); a.appendChild(t); t.onclick=()=>{c++; c>5?ok():sp();} }
+  function sp() { 
+    if(locked) return; 
+    a.innerHTML=""; 
+    let t = document.createElement("button"); 
+    t.className="target"; 
+    t.style.width="50px"; t.style.height="50px";
+    t.style.left = (10 + Math.random() * 70) + "%"; 
+    t.style.top = (10 + Math.random() * 70) + "%";
+    a.appendChild(t); 
+    t.onclick=()=>{c++; c>2?ok():sp();} 
+  }
   sp();
 }
-function gameAvoid() { let a = setupBase("انتظر مرور الوقت لـ 3 ثوانٍ."); registerTimeout(ok, 3000); }
-function gameReaction() { let a = setupBase("انتظر الأخضر."); registerTimeout(ok, 1500); }
+function gameAvoid() { setupBase("انتظر مرور الوقت لـ 3 ثوانٍ."); registerTimeout(ok, 3000); }
+function gameReaction() { setupBase("انتظر انتهاء الوقت."); registerTimeout(ok, 1500); }
 function ok() { if(locked) return; locked=true; roundScore+=100; clearInterval(mainTimer); registerTimeout(()=>{ri++; next();}, 500); }
 function finishClassic() { $("resultTitle").textContent="انتهى التدريب"; show("result"); }
 
@@ -546,10 +574,16 @@ let avoidState = { x: 46, obs: [], player: null, arena: null, speed: 5, spawn: 5
 function startAvoidMarathon() {
   cleanupGameEvents();
   locked = false; time = 30; avoidState.revived = false; avoidState.obs = [];
-  $("counter").textContent = "بطولة الـ 20$"; $("ct").textContent = "🚫 تخطي العقبات"; 
+  $("counter").textContent = "بطولة الـ 20$"; 
+  $("ct").textContent = "🚫 تخطي العقبات"; 
   $("gameArea").innerHTML = `<div class="card gamebox"><div class="gameTitle"><h2>البقاء حياً</h2><p>تجنب المربعات الحمراء لـ 30 ثانية</p></div><div class="arena" id="arena"></div></div>`;
+  
   avoidState.arena = $("arena");
-  avoidState.player = document.createElement("div"); avoidState.player.className = "player"; avoidState.player.textContent = "🟦"; avoidState.player.style.left = "46%"; avoidState.player.style.bottom = "15px"; 
+  avoidState.player = document.createElement("div"); 
+  avoidState.player.className = "player"; 
+  avoidState.player.textContent = "🟦"; 
+  avoidState.player.style.left = "46%"; 
+  avoidState.player.style.bottom = "15px"; 
   avoidState.arena.appendChild(avoidState.player); 
   
   avoidState.speed = [5, 7, 9, 11][S.level];
@@ -564,16 +598,20 @@ function resumeAvoid() {
   
   registerInterval(() => {
     if(locked) return; 
-    let o = document.createElement("div"); o.className = "obstacle"; o.style.width = "35px"; o.style.height = "35px"; 
-    o.style.left = (5 + Math.random() * 85) + "%"; o.style.top = "-40px"; 
-    avoidState.arena.appendChild(o); avoidState.obs.push(o);
+    let o = document.createElement("div"); 
+    o.className = "obstacle"; 
+    o.style.width = "35px"; o.style.height = "35px"; 
+    o.style.left = (5 + Math.random() * 85) + "%"; 
+    o.style.top = "-40px"; 
+    avoidState.arena.appendChild(o); 
+    avoidState.obs.push(o);
   }, avoidState.spawn);
   
   registerInterval(() => {
     if(locked) return;
     avoidState.obs.forEach((o, i) => {
       if(!o || o.hasAttribute('dead')) return;
-      o.style.top = o.offsetTop + avoidState.speed + "px"; 
+      o.style.top = (o.offsetTop + avoidState.speed) + "px"; 
       if(o.offsetTop > 230 && o.offsetTop < 280 && Math.abs(o.offsetLeft - avoidState.player.offsetLeft) < 40) { 
         return handleCollision(); 
       } 
@@ -582,13 +620,20 @@ function resumeAvoid() {
   }, 40);
   
   function move(cx) {
-    if(locked) return; let r = avoidState.arena.getBoundingClientRect(); 
+    if(locked) return; 
+    let r = avoidState.arena.getBoundingClientRect(); 
     avoidState.x = Math.max(3, Math.min(85, (cx - r.left) / r.width * 100 - 4)); 
     avoidState.player.style.left = avoidState.x + "%";
   }
   
-  document.onkeydown = e => { if(locked) return; if(e.key==="ArrowLeft") avoidState.x = Math.max(3, avoidState.x-10); if(e.key==="ArrowRight") avoidState.x = Math.min(85, avoidState.x+10); avoidState.player.style.left = avoidState.x+"%"; };
-  avoidState.arena.ontouchmove = e => move(e.touches[0].clientX); avoidState.arena.onmousemove = e => move(e.clientX);
+  document.onkeydown = e => { 
+    if(locked) return; 
+    if(e.key==="ArrowLeft") avoidState.x = Math.max(3, avoidState.x-10); 
+    if(e.key==="ArrowRight") avoidState.x = Math.min(85, avoidState.x+10); 
+    avoidState.player.style.left = avoidState.x+"%"; 
+  };
+  avoidState.arena.ontouchmove = e => move(e.touches[0].clientX); 
+  avoidState.arena.onmousemove = e => move(e.clientX);
 }
 
 function handleCollision() {
@@ -604,7 +649,7 @@ function showReviveMenu() {
   let m = document.createElement("div"); m.className = "revive-menu";
   m.innerHTML = `
     <h3>اصطدام! 💥</h3>
-    <p>تبقى لك ${time} ثوانٍ فقط. هل تريد المتابعة؟</p>
+    <p>تبقى لك ${time} ثانية. هل تريد المتابعة؟</p>
     <button class="primary" style="margin-bottom:10px" id="btnRevive">🎥 شاهد إعلاناً للنجاة</button>
     <button class="secondary" id="btnGiveUp">استسلام</button>
   `;
@@ -614,7 +659,8 @@ function showReviveMenu() {
     simulateAd(() => {
       m.remove();
       avoidState.revived = true;
-      avoidState.obs.forEach(o => { if(o) o.remove(); }); avoidState.obs = [];
+      avoidState.obs.forEach(o => { if(o) o.remove(); }); 
+      avoidState.obs = [];
       toast("تم الإنعاش! استعد...");
       setTimeout(resumeAvoid, 1000);
     });
@@ -624,27 +670,40 @@ function showReviveMenu() {
 }
 
 function loseAvoidMarathon() {
-  $("resultTitle").textContent = "للأسف خسرت!"; $("resultEmoji").textContent = "💥";
-  $("resultText").textContent = `صمدت لمدة ${30 - time} ثانية. اشترِ تذاكر من المتجر للعودة للمنافسة!`;
-  $("earnedCoins").textContent = 0; $("earnedXp").textContent = 0; 
-  show("result"); save();
+  $("resultTitle").textContent = "للأسف خسرت!"; 
+  $("resultEmoji").textContent = "💥";
+  $("resultText").textContent = `صمدت لمدة ${30 - time} ثانية.`;
+  $("earnedCoins").textContent = 0; 
+  $("earnedXp").textContent = 0; 
+  show("result"); 
+  save();
 }
 
 function winAvoidMarathon() {
-  `locked = true; clearInterval(mainTimer); cleanupGameEvents();`
+  locked = true; clearInterval(mainTimer); cleanupGameEvents();
   let base = 500 + (S.level * 200);
   S.score += base; S.xp += 50; S.coins += 20;
-  $("resultTitle").textContent = "نجاح مبهر!"; $("resultEmoji").textContent = "🏅";
+  $("resultTitle").textContent = "نجاح مبهر!"; 
+  $("resultEmoji").textContent = "🏅";
   $("resultText").textContent = `صمدت 30 ثانية كاملة! تم إضافة 20$ لرصيدك.`;
-  $("earnedCoins").textContent = 20; $("earnedXp").textContent = 50; 
-  show("result"); save();
+  $("earnedCoins").textContent = 20; 
+  $("earnedXp").textContent = 50; 
+  show("result"); 
+  save();
 }
 
 (async () => {
+  if(!db) return;
   try {
     const r = await db.auth.getSession();
-    if(r.data.session?.user) { S.user = r.data.session.user; await loadPlayer(); openGame(); }
-  } catch(e) { toast("سجل الدخول للبدء"); }
+    if(r.data.session?.user) { 
+      S.user = r.data.session.user; 
+      await loadPlayer(); 
+      openGame(); 
+    }
+  } catch(e) {
+    console.error("Session check error:", e);
+  }
 })();
 </script>
 </body>
