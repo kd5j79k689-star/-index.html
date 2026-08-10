@@ -43,7 +43,6 @@ body {
   -webkit-user-select: none;
 }
 
-/* تأثيرات الخلفية */
 body::before {
   content: '';
   position: fixed;
@@ -68,7 +67,6 @@ body::before {
   min-height: 100vh;
 }
 
-/* تحسين الأزرار */
 .btn {
   position: relative;
   overflow: hidden;
@@ -82,6 +80,7 @@ body::before {
   text-align: center;
   width: 100%;
   letter-spacing: -0.3px;
+  display: block;
 }
 
 .btn:active {
@@ -118,7 +117,6 @@ body::before {
   color: var(--text-primary);
 }
 
-/* تأثير اللمعان */
 .btn-primary::after,
 .btn-gold::after,
 .btn-blue::after {
@@ -138,7 +136,6 @@ body::before {
   100% { transform: translateX(100%) rotate(45deg); }
 }
 
-/* كروت محسنة */
 .card {
   background: var(--gradient-dark);
   border: 1px solid var(--border-color);
@@ -147,15 +144,8 @@ body::before {
   margin-bottom: 16px;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* الهيدر */
 .header {
   display: flex;
   align-items: center;
@@ -202,7 +192,6 @@ body::before {
   font-weight: 600;
 }
 
-/* إحصائيات محسنة */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -216,19 +205,6 @@ body::before {
   border-radius: 16px;
   padding: 12px 8px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--gradient-green);
-  opacity: 0.5;
 }
 
 .stat-label {
@@ -237,7 +213,6 @@ body::before {
   color: var(--text-secondary);
   margin-bottom: 4px;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
 .stat-value {
@@ -246,22 +221,11 @@ body::before {
   color: var(--text-primary);
 }
 
-.stat-value.gold {
-  color: var(--accent-gold);
-  text-shadow: var(--glow-gold);
-}
+.stat-value.gold { color: var(--accent-gold); text-shadow: var(--glow-gold); }
+.stat-value.green { color: var(--accent-green); text-shadow: var(--glow-green); }
 
-.stat-value.green {
-  color: var(--accent-green);
-  text-shadow: var(--glow-green);
-}
+.hidden { display: none !important; }
 
-/* أقسام مخفية */
-.hidden {
-  display: none !important;
-}
-
-/* نموذج الدخول المحسن */
 .auth-container {
   min-height: 100vh;
   display: flex;
@@ -294,9 +258,7 @@ body::before {
   50% { transform: translateY(-10px); }
 }
 
-.input-group {
-  margin-bottom: 12px;
-}
+.input-group { margin-bottom: 12px; }
 
 .input {
   width: 100%;
@@ -315,7 +277,6 @@ body::before {
   box-shadow: var(--glow-green);
 }
 
-/* صفحة اللعب */
 .game-area {
   position: relative;
   width: 100%;
@@ -367,14 +328,8 @@ body::before {
   place-items: center;
   font-size: 18px;
   box-shadow: var(--glow-gold);
-  animation: coinSpin 2s linear infinite;
 }
 
-@keyframes coinSpin {
-  100% { transform: rotate(360deg); }
-}
-
-/* المودال */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -394,10 +349,8 @@ body::before {
   padding: 24px;
   width: 100%;
   max-width: 460px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
-/* Toast محسن */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -420,7 +373,6 @@ body::before {
   opacity: 1;
 }
 
-/* مؤقت */
 .timer-display {
   font-size: 48px;
   font-weight: 900;
@@ -441,7 +393,6 @@ body::before {
   50% { transform: scale(1.05); }
 }
 
-/* أزرار التنقل */
 .nav-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -449,7 +400,6 @@ body::before {
   margin-top: 12px;
 }
 
-/* متجر محسن */
 .store-item {
   background: var(--gradient-dark);
   border: 1px solid var(--border-color);
@@ -459,15 +409,8 @@ body::before {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  transition: all 0.3s;
 }
 
-.store-item:hover {
-  border-color: var(--accent-gold);
-  box-shadow: var(--glow-gold);
-}
-
-/* تأثيرات إضافية */
 .fade-in {
   animation: fadeIn 0.4s ease-out;
 }
@@ -477,30 +420,6 @@ body::before {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.slide-in {
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-/* تخصيص السكرول */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 3px;
-}
-
-/* Progress bar */
 .progress-bar {
   width: 100%;
   height: 6px;
@@ -518,7 +437,6 @@ body::before {
   box-shadow: var(--glow-green);
 }
 
-/* Level badges */
 .level-badge {
   display: inline-block;
   padding: 6px 16px;
@@ -529,6 +447,15 @@ body::before {
   font-weight: 700;
   color: var(--accent-green);
   box-shadow: var(--glow-green);
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
 }
 </style>
 </head>
@@ -551,7 +478,7 @@ body::before {
   <div class="modal-content">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
       <h2 style="margin: 0;">💎 سحب الأرباح</h2>
-      <button onclick="closeWithdrawModal()" style="background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer;">✕</button>
+      <button onclick="closeWithdrawModal()" class="back-btn">✕</button>
     </div>
     
     <div class="input-group">
@@ -610,7 +537,7 @@ body::before {
       لدي حساب بالفعل | تسجيل الدخول
     </button>
     
-    <div id="authMessage" style="margin-top: 12px; font-size: 14px;"></div>
+    <div id="authMessage" style="margin-top: 12px; font-size: 14px; min-height: 20px;"></div>
   </div>
 </div>
 
@@ -657,19 +584,19 @@ body::before {
         اربح 20 USDT عند الصمود 30 ثانية!
       </p>
       
-      <button class="btn btn-gold" onclick="startTournament()" style="margin-bottom: 12px;">
+      <button id="tournamentBtn" class="btn btn-gold" onclick="startTournament()" style="margin-bottom: 12px;">
         🎫 دخول البطولة (تذكرة مطلوبة)
       </button>
       
-      <button class="btn btn-primary" onclick="startPractice()">
+      <button id="practiceBtn" class="btn btn-primary" onclick="startPractice()">
         🎮 تدريب مجاني
       </button>
       
       <div class="nav-grid">
-        <button class="btn btn-outline" onclick="showStore()">
+        <button id="storeBtn" class="btn btn-outline" onclick="showStore()">
           🛒 المتجر
         </button>
-        <button class="btn btn-blue" onclick="showProfile()">
+        <button id="profileBtn" class="btn btn-blue" onclick="showProfile()">
           👤 حسابي
         </button>
       </div>
@@ -779,7 +706,7 @@ let appState = {
   },
   game: {
     active: false,
-    mode: '', // 'tournament' or 'practice'
+    mode: '',
     timer: 30,
     score: 0,
     obstacles: [],
@@ -787,7 +714,9 @@ let appState = {
     playerX: 45,
     speed: 3,
     interval: null,
-    obstacleInterval: null
+    obstacleInterval: null,
+    coinInterval: null,
+    timerInterval: null
   }
 };
 
@@ -795,33 +724,67 @@ const LEVELS = ['مبتدئ', 'متوسط', 'متقدم', 'محترف', 'خبي�
 const LEVEL_SPEEDS = [3, 5, 7, 9, 12];
 
 // ============ دوال المساعدة ============
-const $ = (id) => document.getElementById(id);
+function $(id) {
+  return document.getElementById(id);
+}
 
 function showToast(message, duration = 3000) {
   const toast = $('toast');
+  if (!toast) return;
   toast.textContent = message;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), duration);
+  setTimeout(() => {
+    if (toast) toast.classList.remove('show');
+  }, duration);
 }
 
 function hideAllScreens() {
   ['homeScreen', 'storeScreen', 'profileScreen', 'gameScreen'].forEach(id => {
-    $(id).classList.add('hidden');
+    const el = $(id);
+    if (el) el.classList.add('hidden');
   });
 }
 
 function goHome() {
+  stopAllGameIntervals();
   hideAllScreens();
-  $('homeScreen').classList.remove('hidden');
+  const homeScreen = $('homeScreen');
+  if (homeScreen) homeScreen.classList.remove('hidden');
   updateStats();
 }
 
 function updateStats() {
-  $('scoreDisplay').textContent = appState.player.score;
-  $('xpDisplay').textContent = appState.player.xp;
-  $('coinsDisplay').textContent = appState.player.coins;
-  $('ticketsDisplay').textContent = appState.player.tickets;
-  $('levelDisplay').textContent = LEVELS[appState.player.level] || 'مبتدئ';
+  const scoreEl = $('scoreDisplay');
+  const xpEl = $('xpDisplay');
+  const coinsEl = $('coinsDisplay');
+  const ticketsEl = $('ticketsDisplay');
+  const levelEl = $('levelDisplay');
+  
+  if (scoreEl) scoreEl.textContent = appState.player.score;
+  if (xpEl) xpEl.textContent = appState.player.xp;
+  if (coinsEl) coinsEl.textContent = appState.player.coins;
+  if (ticketsEl) ticketsEl.textContent = appState.player.tickets;
+  if (levelEl) levelEl.textContent = LEVELS[appState.player.level] || 'مبتدئ';
+}
+
+function stopAllGameIntervals() {
+  if (appState.game.interval) {
+    clearInterval(appState.game.interval);
+    appState.game.interval = null;
+  }
+  if (appState.game.obstacleInterval) {
+    clearInterval(appState.game.obstacleInterval);
+    appState.game.obstacleInterval = null;
+  }
+  if (appState.game.coinInterval) {
+    clearInterval(appState.game.coinInterval);
+    appState.game.coinInterval = null;
+  }
+  if (appState.game.timerInterval) {
+    clearTimeout(appState.game.timerInterval);
+    appState.game.timerInterval = null;
+  }
+  appState.game.active = false;
 }
 
 // ============ المصادقة ============
@@ -829,20 +792,56 @@ function toggleAuthMode() {
   appState.authMode = appState.authMode === 'register' ? 'login' : 'register';
   const isRegister = appState.authMode === 'register';
   
-  $('nameField').classList.toggle('hidden', !isRegister);
-  $('authButton').textContent = isRegister ? 'إنشاء حساب 🚀' : 'تسجيل الدخول 🚀';
-  $('switchAuthButton').textContent = isRegister ? 'لدي حساب بالفعل | تسجيل الدخول' : 'إنشاء حساب جديد';
-  $('authMessage').textContent = '';
+  const nameField = $('nameField');
+  const authBtn = $('authButton');
+  const switchBtn = $('switchAuthButton');
+  const authMsg = $('authMessage');
+  
+  if (nameField) {
+    nameField.classList.toggle('hidden', !isRegister);
+  }
+  if (authBtn) {
+    authBtn.textContent = isRegister ? 'إنشاء حساب 🚀' : 'تسجيل الدخول 🚀';
+  }
+  if (switchBtn) {
+    switchBtn.textContent = isRegister ? 'لدي حساب بالفعل | تسجيل الدخول' : 'إنشاء حساب جديد';
+  }
+  if (authMsg) {
+    authMsg.textContent = '';
+  }
 }
 
 async function handleAuth() {
-  const email = $('emailInput').value.trim();
-  const password = $('passwordInput').value;
-  const name = $('playerName').value.trim();
-  const authBtn = $('authButton');
+  console.log('handleAuth called, mode:', appState.authMode);
   
-  if (!email || !password) {
-    showToast('يرجى إدخال البريد وكلمة المرور');
+  const emailInput = $('emailInput');
+  const passwordInput = $('passwordInput');
+  const playerNameInput = $('playerName');
+  const authBtn = $('authButton');
+  const authMsg = $('authMessage');
+  
+  if (!emailInput || !passwordInput) {
+    showToast('خطأ في تحميل النموذج');
+    return;
+  }
+  
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const name = playerNameInput ? playerNameInput.value.trim() : '';
+  
+  // التحقق من صحة المدخلات
+  if (!email) {
+    showToast('يرجى إدخال البريد الإلكتروني');
+    return;
+  }
+  
+  if (!password) {
+    showToast('يرجى إدخال كلمة المرور');
+    return;
+  }
+  
+  if (password.length < 6) {
+    showToast('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
     return;
   }
   
@@ -851,35 +850,125 @@ async function handleAuth() {
     return;
   }
   
-  authBtn.disabled = true;
-  $('authMessage').textContent = 'جاري المعالجة...';
+  if (authBtn) authBtn.disabled = true;
+  if (authMsg) authMsg.textContent = 'جاري المعالجة...';
   
   try {
     let result;
     
     if (appState.authMode === 'register') {
+      // إنشاء حساب جديد
+      console.log('Attempting signup...');
       result = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { username: name } }
+        email: email,
+        password: password,
+        options: {
+          data: {
+            username: name
+          }
+        }
       });
+      
+      if (result.error) {
+        console.error('Signup error:', result.error);
+        throw result.error;
+      }
+      
+      console.log('Signup success:', result);
+      
+      if (result.data.user) {
+        appState.user = result.data.user;
+        appState.player.email = email;
+        appState.player.name = name;
+        
+        // إنشاء سجل اللاعب
+        await createPlayerRecord();
+        
+        showToast('تم إنشاء الحساب بنجاح! 🎉');
+        enterApp();
+      }
+      
     } else {
-      result = await supabase.auth.signInWithPassword({ email, password });
+      // تسجيل الدخول
+      console.log('Attempting login...');
+      result = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+      
+      if (result.error) {
+        console.error('Login error:', result.error);
+        throw result.error;
+      }
+      
+      console.log('Login success:', result);
+      
+      if (result.data.user) {
+        appState.user = result.data.user;
+        appState.player.email = email;
+        appState.player.name = result.data.user.user_metadata?.username || 'لاعب';
+        
+        await loadPlayerData();
+        showToast('تم تسجيل الدخول بنجاح! 👋');
+        enterApp();
+      }
     }
     
-    if (result.error) throw result.error;
-    
-    appState.user = result.data.user;
-    appState.player.email = email;
-    appState.player.name = appState.authMode === 'register' ? name : (result.data.user.user_metadata?.username || 'لاعب');
-    
-    await loadPlayerData();
-    enterApp();
   } catch (error) {
-    $('authMessage').textContent = `خطأ: ${error.message}`;
-    showToast(error.message);
+    console.error('Auth error details:', error);
+    
+    let errorMessage = 'حدث خطأ غير متوقع';
+    
+    if (error.message) {
+      if (error.message.includes('User already registered')) {
+        errorMessage = 'هذا البريد مسجل بالفعل. الرجاء تسجيل الدخول.';
+      } else if (error.message.includes('Invalid login credentials')) {
+        errorMessage = 'بريد إلكتروني أو كلمة مرور غير صحيحة';
+      } else if (error.message.includes('Email not confirmed')) {
+        errorMessage = 'يرجى تأكيد البريد الإلكتروني أولاً';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+    
+    if (authMsg) {
+      authMsg.textContent = errorMessage;
+      authMsg.style.color = 'var(--accent-red)';
+    }
+    showToast(errorMessage);
+    
   } finally {
-    authBtn.disabled = false;
+    if (authBtn) authBtn.disabled = false;
+  }
+}
+
+async function createPlayerRecord() {
+  try {
+    const { data, error } = await supabase
+      .from('players')
+      .insert({
+        player_key: appState.user.id,
+        username: appState.player.name,
+        tickets: 3,
+        score: 0,
+        xp: 0,
+        coins: 0,
+        level: 0
+      })
+      .select()
+      .single();
+    
+    if (error) {
+      console.error('Error creating player:', error);
+    } else if (data) {
+      appState.player.score = data.score || 0;
+      appState.player.xp = data.xp || 0;
+      appState.player.coins = data.coins || 0;
+      appState.player.tickets = data.tickets || 0;
+      appState.player.level = data.level || 0;
+    }
+  } catch (error) {
+    console.error('Create player error:', error);
   }
 }
 
@@ -891,6 +980,11 @@ async function loadPlayerData() {
       .eq('player_key', appState.user.id)
       .maybeSingle();
     
+    if (error) {
+      console.error('Load player error:', error);
+      return;
+    }
+    
     if (data) {
       appState.player.score = data.score || 0;
       appState.player.xp = data.xp || 0;
@@ -899,19 +993,10 @@ async function loadPlayerData() {
       appState.player.level = data.level || 0;
     } else {
       // إنشاء سجل جديد مع 3 تذاكر ترحيبية
-      await supabase.from('players').insert({
-        player_key: appState.user.id,
-        username: appState.player.name,
-        tickets: 3,
-        score: 0,
-        xp: 0,
-        coins: 0,
-        level: 0
-      });
-      appState.player.tickets = 3;
+      await createPlayerRecord();
     }
   } catch (error) {
-    console.error('Error loading player data:', error);
+    console.error('Load player data error:', error);
   }
 }
 
@@ -935,39 +1020,54 @@ async function savePlayerData() {
 }
 
 function enterApp() {
-  $('authScreen').classList.add('hidden');
-  $('mainApp').classList.remove('hidden');
+  const authScreen = $('authScreen');
+  const mainApp = $('mainApp');
+  
+  if (authScreen) authScreen.classList.add('hidden');
+  if (mainApp) mainApp.classList.remove('hidden');
+  
   updateStats();
   goHome();
 }
 
 async function handleLogout() {
-  await supabase.auth.signOut();
-  location.reload();
+  try {
+    await supabase.auth.signOut();
+    location.reload();
+  } catch (error) {
+    console.error('Logout error:', error);
+    showToast('خطأ في تسجيل الخروج');
+  }
 }
 
 // ============ المتجر ============
 function showStore() {
   hideAllScreens();
-  $('storeScreen').classList.remove('hidden');
+  const storeScreen = $('storeScreen');
+  if (storeScreen) storeScreen.classList.remove('hidden');
 }
 
 function watchAd() {
   const adOverlay = $('adOverlay');
+  if (!adOverlay) return;
+  
   adOverlay.classList.remove('hidden');
   
   let seconds = 5;
-  $('adCountdown').textContent = `يرجى الانتظار ${seconds} ثوانٍ`;
-  $('adProgress').style.width = '100%';
+  const adCountdown = $('adCountdown');
+  const adProgress = $('adProgress');
+  
+  if (adCountdown) adCountdown.textContent = `يرجى الانتظار ${seconds} ثوانٍ`;
+  if (adProgress) adProgress.style.width = '100%';
   
   const countdown = setInterval(() => {
     seconds--;
-    $('adCountdown').textContent = `يرجى الانتظار ${seconds} ثوانٍ`;
-    $('adProgress').style.width = `${(seconds / 5) * 100}%`;
+    if (adCountdown) adCountdown.textContent = `يرجى الانتظار ${seconds} ثوانٍ`;
+    if (adProgress) adProgress.style.width = `${(seconds / 5) * 100}%`;
     
     if (seconds <= 0) {
       clearInterval(countdown);
-      adOverlay.classList.add('hidden');
+      if (adOverlay) adOverlay.classList.add('hidden');
       appState.player.tickets++;
       savePlayerData();
       updateStats();
@@ -987,29 +1087,47 @@ function buyTickets() {
 function showProfile() {
   hideAllScreens();
   
-  $('profName').textContent = appState.player.name;
-  $('profEmail').textContent = appState.player.email;
-  $('profLevel').textContent = LEVELS[appState.player.level];
-  $('profScore').textContent = appState.player.score;
-  $('profCoins').textContent = appState.player.coins;
-  $('profTickets').textContent = appState.player.tickets;
+  const profName = $('profName');
+  const profEmail = $('profEmail');
+  const profLevel = $('profLevel');
+  const profScore = $('profScore');
+  const profCoins = $('profCoins');
+  const profTickets = $('profTickets');
   
-  $('profileScreen').classList.remove('hidden');
+  if (profName) profName.textContent = appState.player.name;
+  if (profEmail) profEmail.textContent = appState.player.email;
+  if (profLevel) profLevel.textContent = LEVELS[appState.player.level];
+  if (profScore) profScore.textContent = appState.player.score;
+  if (profCoins) profCoins.textContent = appState.player.coins;
+  if (profTickets) profTickets.textContent = appState.player.tickets;
+  
+  const profileScreen = $('profileScreen');
+  if (profileScreen) profileScreen.classList.remove('hidden');
 }
 
 function openWithdrawModal() {
-  $('availableBalance').textContent = appState.player.coins;
-  $('withdrawModal').classList.remove('hidden');
+  const availableBalance = $('availableBalance');
+  if (availableBalance) availableBalance.textContent = appState.player.coins;
+  
+  const withdrawModal = $('withdrawModal');
+  if (withdrawModal) withdrawModal.classList.remove('hidden');
 }
 
 function closeWithdrawModal() {
-  $('withdrawModal').classList.add('hidden');
+  const withdrawModal = $('withdrawModal');
+  if (withdrawModal) withdrawModal.classList.add('hidden');
 }
 
 function processWithdrawal() {
-  const network = $('networkSelect').value;
-  const wallet = $('walletInput').value.trim();
-  const amount = parseFloat($('amountInput').value);
+  const networkSelect = $('networkSelect');
+  const walletInput = $('walletInput');
+  const amountInput = $('amountInput');
+  
+  if (!networkSelect || !walletInput || !amountInput) return;
+  
+  const network = networkSelect.value;
+  const wallet = walletInput.value.trim();
+  const amount = parseFloat(amountInput.value);
   
   if (!wallet) {
     showToast('يرجى إدخال عنوان المحفظة');
@@ -1033,7 +1151,7 @@ function processWithdrawal() {
   showToast(`✅ تم تقديم طلب سحب ${amount} USDT عبر ${network}`);
 }
 
-// ============ نظام اللعب المتقدم ============
+// ============ نظام اللعب ============
 function startTournament() {
   if (appState.player.tickets <= 0) {
     showToast('تحتاج تذكرة للدخول! زر المتجر');
@@ -1053,6 +1171,8 @@ function startPractice() {
 }
 
 function startGame(mode) {
+  stopAllGameIntervals();
+  
   appState.game = {
     active: true,
     mode: mode,
@@ -1061,18 +1181,29 @@ function startGame(mode) {
     obstacles: [],
     coins: [],
     playerX: 45,
-    speed: LEVEL_SPEEDS[appState.player.level],
+    speed: LEVEL_SPEEDS[appState.player.level] || 3,
     interval: null,
-    obstacleInterval: null
+    obstacleInterval: null,
+    coinInterval: null,
+    timerInterval: null
   };
   
   hideAllScreens();
-  $('gameScreen').classList.remove('hidden');
-  $('gameOverMenu').classList.add('hidden');
-  $('gameStatus').textContent = mode === 'tournament' ? '🏆 البطولة - ابقَ حياً!' : '🎮 تدريب';
+  const gameScreen = $('gameScreen');
+  if (gameScreen) gameScreen.classList.remove('hidden');
+  
+  const gameOverMenu = $('gameOverMenu');
+  if (gameOverMenu) gameOverMenu.classList.add('hidden');
+  
+  const gameStatus = $('gameStatus');
+  if (gameStatus) {
+    gameStatus.textContent = mode === 'tournament' ? '🏆 البطولة - ابقَ حياً!' : '🎮 تدريب';
+  }
   
   // إعداد منطقة اللعب
   const canvas = $('gameCanvas');
+  if (!canvas) return;
+  
   canvas.innerHTML = '';
   
   // إضافة اللاعب
@@ -1083,23 +1214,38 @@ function startGame(mode) {
   player.textContent = '🦸';
   canvas.appendChild(player);
   
-  // بدء المؤقت
-  updateGameTimer();
+  // إعادة تعيين المؤقت
+  const gameTimer = $('gameTimer');
+  const timerProgress = $('timerProgress');
+  if (gameTimer) {
+    gameTimer.textContent = '30';
+    gameTimer.classList.remove('danger');
+  }
+  if (timerProgress) timerProgress.style.width = '100%';
+  
+  // بدء اللعبة
   appState.game.interval = setInterval(updateGame, 50);
   appState.game.obstacleInterval = setInterval(spawnObstacle, 1000);
+  appState.game.coinInterval = setInterval(spawnCoin, 2000);
   
-  // إضافة العملات
-  setInterval(spawnCoin, 2000);
+  // بدء المؤقت
+  updateGameTimer();
   
-  // التحكم باللمس
-  canvas.addEventListener('touchmove', handleTouchMove);
-  canvas.addEventListener('mousemove', handleMouseMove);
+  // التحكم
+  if (canvas) {
+    canvas.addEventListener('touchmove', handleTouchMove);
+    canvas.addEventListener('mousemove', handleMouseMove);
+  }
   document.addEventListener('keydown', handleKeyDown);
 }
 
 function handleTouchMove(e) {
   e.preventDefault();
+  if (!appState.game.active) return;
+  
   const canvas = $('gameCanvas');
+  if (!canvas) return;
+  
   const rect = canvas.getBoundingClientRect();
   const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
   movePlayer(x);
@@ -1107,7 +1253,10 @@ function handleTouchMove(e) {
 
 function handleMouseMove(e) {
   if (!appState.game.active) return;
+  
   const canvas = $('gameCanvas');
+  if (!canvas) return;
+  
   const rect = canvas.getBoundingClientRect();
   const x = ((e.clientX - rect.left) / rect.width) * 100;
   movePlayer(x);
@@ -1116,9 +1265,9 @@ function handleMouseMove(e) {
 function handleKeyDown(e) {
   if (!appState.game.active) return;
   
-  if (e.key === 'ArrowLeft' || e.key === 'a') {
+  if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
     movePlayer(appState.game.playerX - 10);
-  } else if (e.key === 'ArrowRight' || e.key === 'd') {
+  } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
     movePlayer(appState.game.playerX + 10);
   }
 }
@@ -1135,6 +1284,8 @@ function spawnObstacle() {
   if (!appState.game.active) return;
   
   const canvas = $('gameCanvas');
+  if (!canvas) return;
+  
   const obstacle = document.createElement('div');
   obstacle.className = 'obstacle';
   obstacle.style.left = Math.random() * 90 + '%';
@@ -1151,6 +1302,8 @@ function spawnCoin() {
   if (!appState.game.active) return;
   
   const canvas = $('gameCanvas');
+  if (!canvas) return;
+  
   const coin = document.createElement('div');
   coin.className = 'coin';
   coin.style.left = Math.random() * 90 + '%';
@@ -1161,7 +1314,7 @@ function spawnCoin() {
   appState.game.coins.push(coin);
   
   setTimeout(() => {
-    if (coin.parentNode) {
+    if (coin && coin.parentNode) {
       coin.remove();
       appState.game.coins = appState.game.coins.filter(c => c !== coin);
     }
@@ -1172,24 +1325,30 @@ function updateGame() {
   if (!appState.game.active) return;
   
   const player = $('playerElement');
-  if (!player) return;
+  const canvas = $('gameCanvas');
+  if (!player || !canvas) return;
   
   const playerRect = player.getBoundingClientRect();
-  const canvas = $('gameCanvas');
   const canvasRect = canvas.getBoundingClientRect();
   
   // تحديث العوائق
-  appState.game.obstacles.forEach((obs, index) => {
+  for (let i = appState.game.obstacles.length - 1; i >= 0; i--) {
+    const obs = appState.game.obstacles[i];
+    if (!obs || !obs.element || !obs.element.parentNode) {
+      appState.game.obstacles.splice(i, 1);
+      continue;
+    }
+    
     obs.y += appState.game.speed;
     obs.element.style.top = obs.y + 'px';
     
     // التحقق من التصادم
     const obsRect = obs.element.getBoundingClientRect();
     if (
-      obsRect.bottom > playerRect.top &&
-      obsRect.top < playerRect.bottom &&
-      obsRect.right > playerRect.left &&
-      obsRect.left < playerRect.right
+      obsRect.bottom > playerRect.top + 10 &&
+      obsRect.top < playerRect.bottom - 10 &&
+      obsRect.right > playerRect.left + 10 &&
+      obsRect.left < playerRect.right - 10
     ) {
       gameOver();
       return;
@@ -1198,13 +1357,19 @@ function updateGame() {
     // إزالة العوائق التي خرجت
     if (obs.y > canvasRect.height) {
       obs.element.remove();
-      appState.game.obstacles.splice(index, 1);
+      appState.game.obstacles.splice(i, 1);
       appState.game.score += 10;
     }
-  });
+  }
   
   // التحقق من جمع العملات
-  appState.game.coins.forEach((coin, index) => {
+  for (let i = appState.game.coins.length - 1; i >= 0; i--) {
+    const coin = appState.game.coins[i];
+    if (!coin || !coin.parentNode) {
+      appState.game.coins.splice(i, 1);
+      continue;
+    }
+    
     const coinRect = coin.getBoundingClientRect();
     if (
       coinRect.bottom > playerRect.top &&
@@ -1213,21 +1378,29 @@ function updateGame() {
       coinRect.left < playerRect.right
     ) {
       coin.remove();
-      appState.game.coins.splice(index, 1);
+      appState.game.coins.splice(i, 1);
       appState.player.coins++;
-      showToast('+1 عملة 💰', 1000);
     }
-  });
+  }
 }
 
 function updateGameTimer() {
   if (!appState.game.active) return;
   
-  $('gameTimer').textContent = appState.game.timer;
-  $('timerProgress').style.width = (appState.game.timer / 30) * 100 + '%';
+  const gameTimer = $('gameTimer');
+  const timerProgress = $('timerProgress');
   
-  if (appState.game.timer <= 10) {
-    $('gameTimer').classList.add('danger');
+  if (gameTimer) {
+    gameTimer.textContent = appState.game.timer;
+    if (appState.game.timer <= 10) {
+      gameTimer.classList.add('danger');
+    } else {
+      gameTimer.classList.remove('danger');
+    }
+  }
+  
+  if (timerProgress) {
+    timerProgress.style.width = (appState.game.timer / 30) * 100 + '%';
   }
   
   if (appState.game.timer <= 0) {
@@ -1236,19 +1409,21 @@ function updateGameTimer() {
   }
   
   appState.game.timer--;
-  setTimeout(updateGameTimer, 1000);
+  appState.game.timerInterval = setTimeout(updateGameTimer, 1000);
 }
 
 function gameOver() {
   appState.game.active = false;
-  clearInterval(appState.game.interval);
-  clearInterval(appState.game.obstacleInterval);
+  stopAllGameIntervals();
   
-  $('gameOverMenu').classList.remove('hidden');
-  $('gameStatus').textContent = '💥 اصطدام!';
+  const gameOverMenu = $('gameOverMenu');
+  const gameStatus = $('gameStatus');
+  
+  if (gameOverMenu) gameOverMenu.classList.remove('hidden');
+  if (gameStatus) gameStatus.textContent = '💥 اصطدام!';
   
   if (appState.game.mode === 'tournament') {
-    showToast('حظ أوفر المرة القادمة!', 3000);
+    showToast('حظ أوفر المرة القادمة!');
   }
   
   savePlayerData();
@@ -1256,8 +1431,13 @@ function gameOver() {
 
 function winGame() {
   appState.game.active = false;
-  clearInterval(appState.game.interval);
-  clearInterval(appState.game.obstacleInterval);
+  stopAllGameIntervals();
+  
+  const gameStatus = $('gameStatus');
+  const gameOverMenu = $('gameOverMenu');
+  
+  if (gameStatus) gameStatus.textContent = '🎉 فوز!';
+  if (gameOverMenu) gameOverMenu.classList.remove('hidden');
   
   if (appState.game.mode === 'tournament') {
     const reward = 20;
@@ -1270,23 +1450,24 @@ function winGame() {
       appState.player.level = Math.min(4, appState.player.level + 1);
     }
     
-    showToast(`🏆 مبروك! ربحت ${reward} USDT!`, 5000);
+    showToast(`🏆 مبروك! ربحت ${reward} USDT!`);
   } else {
     appState.player.score += 100;
     appState.player.xp += 20;
-    showToast('✅ تدريب ناجح!', 3000);
+    showToast('✅ تدريب ناجح!');
   }
   
   savePlayerData();
   updateStats();
-  
-  setTimeout(() => {
-    goHome();
-  }, 2000);
 }
 
 function retryGame() {
   if (appState.game.mode === 'tournament') {
+    if (appState.player.tickets <= 0) {
+      showToast('لا تملك تذاكر كافية!');
+      goHome();
+      return;
+    }
     startTournament();
   } else {
     startPractice();
@@ -1295,8 +1476,18 @@ function retryGame() {
 
 // ============ التهيئة ============
 async function init() {
+  console.log('Initializing app...');
+  
   try {
-    const { data } = await supabase.auth.getSession();
+    const { data, error } = await supabase.auth.getSession();
+    
+    if (error) {
+      console.error('Session error:', error);
+      return;
+    }
+    
+    console.log('Session data:', data);
+    
     if (data.session?.user) {
       appState.user = data.session.user;
       appState.player.email = data.session.user.email;
@@ -1309,8 +1500,17 @@ async function init() {
   }
 }
 
-// بدء التطبيق
-init();
+// التأكد من تحميل DOM قبل التهيئة
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, starting initialization...');
+  init();
+});
+
+// أيضاً محاولة التهيئة إذا كان DOM جاهزاً بالفعل
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  console.log('DOM already ready, starting initialization...');
+  setTimeout(init, 100);
+}
 </script>
 </body>
 </html>
