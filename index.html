@@ -3,19 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>تحديات سريعة PRO - البطولة</title>
+<title>تحديات سريعة PRO - البروفايل والأرباح</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-/* إعدادات عامة وتحسينات بصرية */
 *{box-sizing:border-box}
 body{margin:0;background:#050912;color:#f5f7ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-button,input{font:inherit}
+button,input,select{font:inherit}
 button{border:0;color:inherit;cursor:pointer;transition: transform 0.1s, opacity 0.2s;}
 button:active:not(:disabled) {transform: scale(0.95);}
 button:disabled {opacity: 0.5; cursor: not-allowed;}
 .hidden{display:none!important}
 
-:root{--g:#35e79a;--b:#5da9ff;--p:#0b1626;--l:#203754;--m:#8ea2bd;--r:#ff5870;--y:#ffd45a; --gold:#ffb703}
+:root{--g:#35e79a;--b:#5da9ff;--p:#0b1626;--l:#203754;--m:#8ea2bd;--r:#ff5870;--y:#ffd45a; --gold:#ffb703; --usdt:#26a17b}
 .app{width:min(100%,620px);margin:auto;padding:14px; animation: fadeIn 0.4s ease-out;}
 .card{background:linear-gradient(145deg,#0c1a2b,#081321);border:1px solid var(--l);border-radius:22px;box-shadow:0 18px 50px #0006}
 
@@ -24,12 +23,13 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .login .card{width:min(100%,430px);padding:28px 21px;text-align:center}
 .logo,.mini{display:grid;place-items:center;background:linear-gradient(135deg,#48efaa,#14b96f);color:#03130b;box-shadow: 0 4px 15px rgba(53, 231, 154, 0.3);}
 .logo{width:72px;height:72px;margin:auto;border-radius:23px;font-size:37px}
-.input{width:100%;padding:14px;margin-top:9px;border-radius:15px;border:1px solid #29415f;background:#0b1727;color:white;outline:0; transition: border-color 0.3s;}
-.input:focus{border-color:var(--g)}
-.primary,.secondary,.gold-btn{width:100%;padding:14px;border-radius:15px;font-weight:900;margin-top:10px}
+.input,.select{width:100%;padding:14px;margin-top:9px;border-radius:15px;border:1px solid #29415f;background:#0b1727;color:white;outline:0; transition: border-color 0.3s;}
+.input:focus,.select:focus{border-color:var(--g)}
+.primary,.secondary,.gold-btn,.usdt-btn{width:100%;padding:14px;border-radius:15px;font-weight:900;margin-top:10px}
 .primary{background:linear-gradient(135deg,#48efaa,#19c979);color:#04120c}
 .secondary{background:#14253b;border:1px solid #29415f; color: #f5f7ff;}
 .gold-btn{background:linear-gradient(135deg,#ffb703,#fb8500);color:#000; box-shadow: 0 4px 15px rgba(255, 183, 3, 0.3);}
+.usdt-btn{background:linear-gradient(135deg,#26a17b,#1b7559);color:#fff; box-shadow: 0 4px 15px rgba(38, 161, 123, 0.3);}
 .switch{margin-top:11px;background:transparent;color:#79efbd;font-size:12px}
 .muted{color:var(--m);font-size:12px;line-height:1.7}
 
@@ -55,7 +55,10 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .hero p{color:var(--m);font-size:13px;line-height:1.8}
 .title{font-size:19px;font-weight:900;margin:16px 2px 9px}
 
-/* المتجر والإعلانات */
+/* أزرار التنقل السريعة الرئيسية */
+.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px;}
+
+/* المتجر والإعلانات وسحب الأموال */
 .store-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px;}
 .store-item{background:#112236; border: 1px solid #29415f; padding: 15px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center;}
 .store-item-info h4{margin: 0 0 5px; color: #fff;}
@@ -63,7 +66,11 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .ad-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white;}
 .ad-loader{width:50px;height:50px;border:4px solid #333;border-top-color:var(--g);border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;}
 
-/* المستويات واللعب */
+/* نافذة السحب المنبثقة */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,9,18,0.85);z-index:90;display:flex;justify-content:center;align-items:center;padding:15px;}
+.modal-card{width:min(100%,450px);background:#0c1a2b;border:1px solid var(--l);border-radius:20px;padding:22px;text-align:right;}
+
+/* مستويات واللعب */
 .levels{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .level{padding:16px;text-align:right;border-radius:17px;background:#0c192a;border:1px solid #203552; transition: all 0.2s;}
 .level.active{border-color:var(--g); background: #0c202a; box-shadow: 0 0 15px rgba(53, 231, 154, 0.15);}
@@ -82,30 +89,24 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .gameTitle p{margin:0;color:var(--m);font-size:11px}
 .arena{height:315px;margin-top:12px;border-radius:18px;background:radial-gradient(circle at 50% 20%,#12243c,#07111e 70%);border:1px solid #203653;position:relative;overflow:hidden; touch-action: none;}
 
-/* عناصر الألعاب */
 .target{position:absolute;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,#35e79a 35%,#0ca76b);color:#03130b;font-weight:1000;box-shadow:0 0 25px #35e79a66}
-.bomb,.coin,.player,.obstacle,.gate{position:absolute}
+.bomb,.coin,.player,.obstacle{position:absolute}
 .bomb{border-radius:50%;font-size:26px;background:transparent; display:grid; place-items:center;}
 .coin{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fff29b,#f1a800);color:#4b2b00;box-shadow:0 0 20px #ffd45a66; font-size: 20px;}
 .player{width:45px;height:45px;border-radius:13px;background:linear-gradient(135deg,#63b7ff,#765dff);display:grid;place-items:center;font-size:23px; box-shadow: 0 5px 15px rgba(99, 183, 255, 0.4); z-index: 10;}
 .obstacle{border-radius:8px;background:linear-gradient(135deg,#ff5870,#8b1730); box-shadow: 0 0 10px rgba(255, 88, 112, 0.5);}
 
-.center{text-align:center;padding:20px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;}
 .feedback{text-align:center;min-height:24px;color:var(--m);font-size:14px;font-weight: bold;padding-top:8px}
-
-/* قائمة الإنعاش (Revive) */
 .revive-menu{position:absolute;inset:0;background:rgba(7, 17, 30, 0.95);z-index:50;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center; border-radius: 18px;}
 .revive-menu h3{color:var(--r);font-size:24px;margin-bottom:10px;}
 .revive-menu p{color:#fff;margin-bottom:20px;}
 
-/* النتائج والإشعارات */
 .result{text-align:center;padding:27px 19px}
 .result .big{font-size:65px; margin-bottom: 10px; animation: bounce 2s infinite;}
 .reward{color:var(--y);font-weight:900;margin:12px; font-size: 18px; background: rgba(255, 212, 90, 0.1); padding: 10px; border-radius: 12px;}
 .toast{position:fixed;left:50%;bottom:20px;transform:translate(-50%,30px);opacity:0;background:#142a43;border:1px solid #315070;padding:12px 16px;border-radius:14px;transition:.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);z-index:999; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-/* Animations */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -120,6 +121,30 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
   <div class="ad-loader"></div>
   <h2>جاري عرض الإعلان... 🎥</h2>
   <p id="adTimer">يرجى الانتظار 5 ثوانٍ</p>
+</div>
+
+<!-- نافذة سحب الأرباح عبر USDT -->
+<div id="withdrawModal" class="modal-overlay hidden">
+  <div class="modal-card">
+    <h2 style="margin-top:0; color: var(--usdt);">💸 سحب الأرباح (USDT)</h2>
+    <p class="muted">الحد الأدنى للسحب هو 20$ (أو ما يعادلها بالعملات)</p>
+    
+    <label class="muted" style="display:block; margin-top:10px;">اختر شبكة التحويل:</label>
+    <select id="networkSelect" class="select">
+      <option value="TRC20">Tron (TRC20) - الأسرع رسوماً</option>
+      <option value="ERC20">Ethereum (ERC20)</option>
+      <option value="BEP20">Binance Smart Chain (BEP20)</option>
+    </select>
+
+    <label class="muted" style="display:block; margin-top:10px;">عنوان المحفظة (Wallet Address):</label>
+    <input id="walletInput" class="input" placeholder="أدخل عنوان محفظتك هنا (مثل: T...)">
+
+    <label class="muted" style="display:block; margin-top:10px;">المبلغ المراد سحبه ($):</label>
+    <input id="amountInput" class="input" type="number" min="20" placeholder="20">
+
+    <button class="usdt-btn" onclick="submitWithdrawal()">تأكيد طلب السحب 🚀</button>
+    <button class="secondary" onclick="closeWithdrawModal()" style="margin-top:8px;">إلغاء</button>
+  </div>
 </div>
 
 <div id="login" class="login">
@@ -153,12 +178,13 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
       <div id="avatar" class="avatar">A</div>
       <div>
         <b id="playerName">لاعب</b>
-        <div id="meta" class="muted"></div>
+        <div id="meta" class="muted">مسجل النظام</div>
       </div>
     </div>
     <button class="secondary" style="width:auto;margin:0;padding:8px 15px; border-radius: 12px;" onclick="logout()">خروج</button>
   </div>
 
+  <!-- الشاشة الرئيسية -->
   <section id="home">
     <div class="stats">
       <div class="stat"><span>النقاط</span><b id="score">0</b></div>
@@ -175,11 +201,37 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
       <div style="display:flex; gap:10px; margin-top:15px; flex-direction:column;">
         <button class="gold-btn" onclick="setMode('avoid')">🎟️ بطولة البقاء (تتطلب تذكرة)</button>
         <button class="primary" onclick="setMode('classic')">🎮 تمرين مجاني (10 ألعاب)</button>
-        <button class="secondary" onclick="showStore()">🛒 المتجر (الحصول على تذاكر)</button>
+        <div class="nav-grid">
+          <button class="secondary" onclick="showStore()">🛒 متجر التذاكر</button>
+          <button class="usdt-btn" style="margin-top:0;" onclick="showProfile()">👤 البروفايل والسحب</button>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- صفحة البروفايل المتكاملة -->
+  <section id="profilePage" class="hidden">
+    <div class="card hero" style="text-align: right;">
+      <h2 style="text-align: center;">👤 ملف اللاعب الشخصي</h2>
+      <p style="text-align: center;">إدارة الحساب، المعلومات الشخصية، والأرباح.</p>
+      
+      <div style="background: #112236; border: 1px solid #29415f; padding: 15px; border-radius: 15px; margin-top: 15px; text-align: right;">
+        <p style="margin: 5px 0;"><b>اسم اللاعب:</b> <span id="profName">-</span></p>
+        <p style="margin: 5px 0;"><b>البريد الإلكتروني:</b> <span id="profEmail">-</span></p>
+        <p style="margin: 5px 0;"><b>المستوى الحالي:</b> <span id="profLevel">-</span></p>
+        <p style="margin: 5px 0;"><b>إجمالي النقاط:</b> <span id="profScore">0</span></p>
+        <p style="margin: 5px 0;"><b>رصيد العملات والجوائز:</b> <span id="profCoins">0</span> 🪙</p>
+        <p style="margin: 5px 0;"><b>رصيد التذاكر الذهبية:</b> <span id="profTickets">0</span> 🎫</p>
+      </div>
+
+      <div style="margin-top: 15px;">
+        <button class="usdt-btn" onclick="openWithdrawModal()">💸 سحب الأرباح عبر USDT</button>
+        <button class="secondary" onclick="home()" style="margin-top: 10px;">الرئيسية 🏠</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- متجر التذاكر -->
   <section id="store" class="hidden">
     <div class="card hero" style="text-align: right;">
       <h2 style="text-align: center;">متجر التذاكر 🎫</h2>
@@ -252,13 +304,12 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let mode = "register", playMode = "classic", mainTimer = null, time = 30, ri = 0, locked = false;
 let roundScore = 0, roundXp = 0, roundCoins = 0;
-let S = {user: null, name: "", score: 0, xp: 0, coins: 0, level: 0, streak: 0, best: 0, tickets: 0};
+let S = {user: null, name: "", email: "", score: 0, xp: 0, coins: 0, level: 0, tickets: 0};
 
 let activeIntervals = [];
 let activeTimeouts = [];
 
 const LV = [["سهل", 1], ["متوسط", 1.45], ["صعب", 2], ["خبير", 2.7]];
-const G = ["target", "avoid", "reaction"];
 const $ = id => document.getElementById(id);
 
 function toast(t) {
@@ -266,7 +317,7 @@ function toast(t) {
   clearTimeout(window.tt); window.tt = setTimeout(() => $("toast").classList.remove("show"), 3000);
 }
 function show(id) {
-  ["home", "levels", "play", "result", "store"].forEach(x => $(x).classList.add("hidden"));
+  ["home", "levels", "play", "result", "store", "profilePage"].forEach(x => $(x).classList.add("hidden"));
   $(id).classList.remove("hidden");
 }
 function switchAuth() {
@@ -286,11 +337,11 @@ async function auth() {
     if(mode === "register") {
       result = await db.auth.signUp({ email, password: pass, options: { data: { username: name } } });
       if(result.error) throw result.error;
-      S.user = result.data.user; S.name = name;
+      S.user = result.data.user; S.name = name; S.email = email;
     } else {
       result = await db.auth.signInWithPassword({ email, password: pass });
       if(result.error) throw result.error;
-      S.user = result.data.user; S.name = result.data.user.user_metadata?.username || "";
+      S.user = result.data.user; S.email = result.data.user.email; S.name = result.data.user.user_metadata?.username || "لاعب";
     }
     await loadPlayer(); openGame(); $("authMsg").textContent = "";
   } catch(e) {
@@ -299,6 +350,7 @@ async function auth() {
 }
 
 async function loadPlayer() {
+  S.email = S.user.email;
   const r = await db.from("players").select("*").eq("player_key", S.user.id).maybeSingle();
   if(!r.data) {
     const insertResult = await db.from("players").insert({
@@ -326,8 +378,42 @@ function update() {
   $("score").textContent = S.score; $("xp").textContent = S.xp; $("coins").textContent = S.coins;
   $("tickets").textContent = S.tickets + " 🎫"; $("levelBadge").textContent = LV[S.level][0]; 
 }
+
 function home() { cleanupGameEvents(); clearInterval(mainTimer); show("home"); update(); }
 function showStore() { show("store"); }
+
+function showProfile() {
+  $("profName").textContent = S.name;
+  $("profEmail").textContent = S.email || "غير متوفر";
+  $("profLevel").textContent = LV[S.level][0];
+  $("profScore").textContent = S.score;
+  $("profCoins").textContent = S.coins;
+  $("profTickets").textContent = S.tickets;
+  show("profilePage");
+}
+
+/* دوال نافذة السحب عبر USDT */
+function openWithdrawModal() { $("withdrawModal").classList.remove("hidden"); }
+function closeWithdrawModal() { $("withdrawModal").classList.add("hidden"); }
+
+function submitWithdrawal() {
+  const network = $("networkSelect").value;
+  const wallet = $("walletInput").value.trim();
+  const amount = Number($("amountInput").value);
+
+  if(!wallet) return toast("يرجى إدخال عنوان المحفظة بشكل صحيح");
+  if(!amount || amount < 20) return toast("الحد الأدنى للسحب هو 20$");
+
+  if(S.coins < amount) {
+    return toast("رصيدك الحالي غير كافٍ لإتمام عملية السحب!");
+  }
+
+  // خصم المبلغ تجريبياً وحفظه
+  S.coins -= amount;
+  save(); update();
+  closeWithdrawModal();
+  toast(`تم تقديم طلب سحب ${amount}$ بنجاح عبر شبكة ${network}!`);
+}
 
 function setMode(m) {
   playMode = m;
@@ -356,9 +442,9 @@ function registerTimeout(fn, delay) { const id = setTimeout(fn, delay); activeTi
 function startRound() { 
   if (playMode === 'avoid') {
     if(S.tickets <= 0) return toast("رصيد التذاكر غير كافٍ");
-    S.tickets--; // خصم التذكرة
+    S.tickets--; 
     save(); update();
-    show("play"); // إظهار شاشة اللعب فور خصم التذكرة
+    show("play"); 
     startAvoidMarathon();
   } else {
     ri = 0; roundScore = roundXp = roundCoins = 0; 
@@ -483,7 +569,6 @@ function resumeAvoid() {
 
 function handleCollision() {
   locked = true; clearInterval(mainTimer); cleanupGameEvents();
-  
   if(!avoidState.revived && time > 0) {
     showReviveMenu();
   } else {
@@ -526,7 +611,7 @@ function winAvoidMarathon() {
   let base = 500 + (S.level * 200);
   S.score += base; S.xp += 50; S.coins += 20;
   $("resultTitle").textContent = "نجاح مبهر!"; $("resultEmoji").textContent = "🏅";
-  $("resultText").textContent = `صمدت 30 ثانية كاملة! تم تسجيل رقمك في البطولة.`;
+  $("resultText").textContent = `صمدت 30 ثانية كاملة! تم إضافة 20$ لرصيدك.`;
   $("earnedCoins").textContent = 20; $("earnedXp").textContent = 50; 
   show("result"); save();
 }
