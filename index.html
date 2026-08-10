@@ -359,6 +359,7 @@ function startRound() {
     if(S.tickets <= 0) return toast("رصيد التذاكر غير كافٍ");
     S.tickets--; // خصم التذكرة
     save(); update();
+    show("play"); // <-- هذا هو السطر الذي كان مفقوداً لإظهار شاشة اللعب
     startAvoidMarathon();
   } else {
     ri = 0; roundScore = roundXp = roundCoins = 0; 
