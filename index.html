@@ -9,7 +9,7 @@
 *{box-sizing:border-box}
 body{margin:0;background:#030712;color:#f8fafc;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
 button,input,select{font:inherit}
-button{border:0;color:inherit;cursor:pointer;transition: all 0.2s ease; position: relative; z-index: 10;}
+button{border:0;color:inherit;cursor:pointer;transition: all 0.2s ease; position: relative; z-index: 100;-webkit-tap-highlight-color: transparent;}
 button:active:not(:disabled) {transform: scale(0.96);}
 button:disabled {opacity: 0.5; cursor: not-allowed;}
 .hidden{display:none!important}
@@ -29,7 +29,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .logo,.mini{display:grid;place-items:center;background:linear-gradient(135deg,#34d399,#059669);color:#022c22;box-shadow: 0 0 25px var(--g-glow);}
 .logo{width:76px;height:76px;margin:auto;border-radius:24px;font-size:38px}
 
-.input,.select{width:100%;padding:14px;margin-top:10px;border-radius:16px;border:1px solid #334155;background:#090e1d;color:white;outline:0; position: relative; z-index: 10;}
+.input,.select{width:100%;padding:14px;margin-top:10px;border-radius:16px;border:1px solid #334155;background:#090e1d;color:white;outline:0; position: relative; z-index: 100;}
 .input:focus,.select:focus{border-color:var(--g); box-shadow: 0 0 12px var(--g-glow)}
 
 .primary,.secondary,.gold-btn,.usdt-btn{width:100%;padding:15px;border-radius:16px;font-weight:800;margin-top:12px; overflow: hidden;}
@@ -69,8 +69,8 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .store-item-info h4{margin: 0 0 4px; color: #fff; font-size: 15px;}
 .store-item-info p{margin: 0; font-size: 11px; color: var(--m);}
 
-.ad-overlay,.modal-overlay{position:fixed;inset:0;background:rgba(3,7,18,0.92);z-index:100;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white; backdrop-filter: blur(6px);}
-.modal-overlay{background:rgba(3,7,18,0.88); z-index:90;}
+.ad-overlay,.modal-overlay{position:fixed;inset:0;background:rgba(3,7,18,0.92);z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:center;color:white; backdrop-filter: blur(6px);}
+.modal-overlay{background:rgba(3,7,18,0.88); z-index:999;}
 .modal-card{width:min(100%,450px);background:linear-gradient(145deg,#0b152e,#070d1d);border:1px solid #2a3c5e;border-radius:24px;padding:24px;text-align:right;}
 .ad-loader{width:56px;height:56px;border:4px solid #1e293b;border-top-color:#34d399;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:20px;}
 
@@ -95,16 +95,16 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .target{position:absolute;border-radius:50%;display:grid;place-items:center;background:#34d399;color:#022c22;font-weight:bold}
 .coin,.player,.obstacle{position:absolute}
 .coin{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fbbf24;color:#422006;font-size: 20px;}
-.player{width:46px;height:46px;border-radius:14px;background:#60a5fa;display:grid;place-items:center;font-size:24px; z-index: 10;}
+.player{width:46px;height:46px;border-radius:14px;background:#60a5fa;display:grid;place-items:center;font-size:24px; z-index: 50;}
 .obstacle{border-radius:10px;background:#f43f5e;}
 
 .feedback{text-align:center;min-height:24px;color:var(--m);font-size:14px;font-weight: bold;padding-top:10px}
-.revive-menu{position:absolute;inset:0;background:rgba(3,7,18,0.95);z-index:50;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center; border-radius: 20px;}
+.revive-menu{position:absolute;inset:0;background:rgba(3,7,18,0.95);z-index:80;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center; border-radius: 20px;}
 .result{text-align:center;padding:30px 20px}
 .result .big{font-size:70px; margin-bottom: 12px;}
 .reward{color:var(--gold);font-weight:900;margin:14px 0; font-size: 19px; background: rgba(251,191,36,0.08); padding: 12px; border-radius: 14px;}
 
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:#0d152c;border:1px solid #334155;padding:14px 20px;border-radius:16px;transition:.3s;z-index:999; font-weight: 600;}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);opacity:0;background:#0d152c;border:1px solid #334155;padding:14px 20px;border-radius:16px;transition:.3s;z-index:9999; font-weight: 600;}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -137,8 +137,8 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
     <label class="muted" style="display:block; margin-top:12px;">المبلغ ($):</label>
     <input id="amountInput" class="input" type="number" min="20" placeholder="20">
 
-    <button class="usdt-btn" onclick="submitWithdrawal()">تأكيد طلب السحب 🚀</button>
-    <button class="secondary" onclick="closeWithdrawModal()" style="margin-top:10px;">إلغاء</button>
+    <button class="usdt-btn" type="button" onclick="submitWithdrawal()">تأكيد طلب السحب 🚀</button>
+    <button class="secondary" type="button" onclick="closeWithdrawModal()" style="margin-top:10px;">إلغاء</button>
   </div>
 </div>
 
@@ -150,8 +150,8 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
     <div id="nameBox"><input id="name" class="input" placeholder="اسم اللاعب"></div>
     <input id="email" class="input" type="email" placeholder="البريد الإلكتروني">
     <input id="password" class="input" type="password" placeholder="كلمة المرور">
-    <button id="authBtn" class="primary" onclick="auth()">إنشاء حساب 🚀</button>
-    <button id="switchBtn" class="switch" onclick="switchAuth()">لدي حساب بالفعل — تسجيل الدخول</button>
+    <button id="authBtn" type="button" class="primary" onclick="auth()">إنشاء حساب 🚀</button>
+    <button id="switchBtn" type="button" class="switch" onclick="switchAuth()">لدي حساب بالفعل — تسجيل الدخول</button>
     <div id="authMsg" class="muted" style="margin-top: 10px;"></div>
   </div>
 </div>
@@ -176,7 +176,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
         <div class="muted">مسجل النظام</div>
       </div>
     </div>
-    <button class="secondary" style="width:auto;margin:0;padding:8px 16px; border-radius: 12px; font-size: 13px;" onclick="logout()">خروج</button>
+    <button class="secondary" type="button" style="width:auto;margin:0;padding:8px 16px; border-radius: 12px; font-size: 13px;" onclick="logout()">خروج</button>
   </div>
 
   <section id="home">
@@ -193,11 +193,11 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
       <p style="color: var(--gold); font-weight: bold;">اربح 20$ بصمودك لـ 30 ثانية</p>
       
       <div style="display:flex; gap:10px; margin-top:16px; flex-direction:column;">
-        <button class="gold-btn" onclick="setMode('avoid')">🎟️ بطولة البقاء (تتطلب تذكرة)</button>
-        <button class="primary" onclick="setMode('classic')">🎮 تمرين مجاني (10 ألعاب)</button>
+        <button class="gold-btn" type="button" onclick="setMode('avoid')">🎟️ بطولة البقاء (تتطلب تذكرة)</button>
+        <button class="primary" type="button" onclick="setMode('classic')">🎮 تمرين مجاني (10 ألعاب)</button>
         <div class="nav-grid">
-          <button class="secondary" onclick="showStore()">🛒 متجر التذاكر</button>
-          <button class="usdt-btn" style="margin-top:0;" onclick="showProfile()">👤 البروفايل والسحب</button>
+          <button class="secondary" type="button" onclick="showStore()">🛒 متجر التذاكر</button>
+          <button class="usdt-btn" type="button" style="margin-top:0;" onclick="showProfile()">👤 البروفايل والسحب</button>
         </div>
       </div>
     </div>
@@ -215,8 +215,8 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
         <p><b>التذاكر:</b> <span id="profTickets">0</span> 🎫</p>
       </div>
       <div style="margin-top: 16px;">
-        <button class="usdt-btn" onclick="openWithdrawModal()">💸 سحب الأرباح عبر USDT</button>
-        <button class="secondary" onclick="home()" style="margin-top: 10px;">الرئيسية 🏠</button>
+        <button class="usdt-btn" type="button" onclick="openWithdrawModal()">💸 سحب الأرباح عبر USDT</button>
+        <button class="secondary" type="button" onclick="home()" style="margin-top: 10px;">الرئيسية 🏠</button>
       </div>
     </div>
   </section>
@@ -230,30 +230,30 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
             <h4>تذكرة مجانية</h4>
             <p>شاهد إعلاناً قصيراً</p>
           </div>
-          <button class="primary" style="width: auto; margin: 0; padding: 10px 16px;" onclick="watchAdForTicket()">مشاهدة 🎥</button>
+          <button class="primary" type="button" style="width: auto; margin: 0; padding: 10px 16px;" onclick="watchAdForTicket()">مشاهدة 🎥</button>
         </div>
         <div class="store-item">
           <div class="store-item-info">
             <h4>3 تذاكر ذهبية</h4>
             <p>دعم اللعبة والاستمرار</p>
           </div>
-          <button class="gold-btn" style="width: auto; margin: 0; padding: 10px 16px;" onclick="buyTickets()">شراء 💳</button>
+          <button class="gold-btn" type="button" style="width: auto; margin: 0; padding: 10px 16px;" onclick="buyTickets()">شراء 💳</button>
         </div>
       </div>
-      <button class="secondary" onclick="home()" style="margin-top: 16px;">الرئيسية 🏠</button>
+      <button class="secondary" type="button" onclick="home()" style="margin-top: 16px;">الرئيسية 🏠</button>
     </div>
   </section>
 
   <section id="levels" class="hidden">
     <div class="title" id="levelsTitle">اختر الصعوبة</div>
     <div class="levels">
-      <button class="level active" onclick="setLevel(0)"><h3>🟢 سهل</h3><p>تدريب للبطولة</p></button>
-      <button class="level" onclick="setLevel(1)"><h3>🔵 متوسط</h3><p>سرعة أعلى</p></button>
-      <button class="level" onclick="setLevel(2)"><h3>🟠 صعب</h3><p>تحدي قوي</p></button>
-      <button class="level" onclick="setLevel(3)"><h3>🔴 خبير</h3><p>المؤهل للجائزة</p></button>
+      <button class="level active" type="button" onclick="setLevel(0)"><h3>🟢 سهل</h3><p>تدريب للبطولة</p></button>
+      <button class="level" type="button" onclick="setLevel(1)"><h3>🔵 متوسط</h3><p>سرعة أعلى</p></button>
+      <button class="level" type="button" onclick="setLevel(2)"><h3>🟠 صعب</h3><p>تحدي قوي</p></button>
+      <button class="level" type="button" onclick="setLevel(3)"><h3>🔴 خبير</h3><p>المؤهل للجائزة</p></button>
     </div>
-    <button class="primary" onclick="startRound()" style="margin-top: 16px;">ابدأ الجولة 🔥</button>
-    <button class="secondary" onclick="home()" style="margin-top: 10px;">رجوع</button>
+    <button class="primary" type="button" onclick="startRound()" style="margin-top: 16px;">ابدأ الجولة 🔥</button>
+    <button class="secondary" type="button" onclick="home()" style="margin-top: 10px;">رجوع</button>
   </section>
 
   <section id="play" class="hidden">
@@ -277,7 +277,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
       <h2 id="resultTitle">انتهت الجولة!</h2>
       <p id="resultText" class="muted"></p>
       <div class="reward">🪙 +<span id="earnedCoins">0</span> • ⭐ +<span id="earnedXp">0</span> XP</div>
-      <button class="primary" onclick="home()">الرئيسية 🏠</button>
+      <button class="primary" type="button" onclick="home()">الرئيسية 🏠</button>
     </div>
   </section>
 </main>
@@ -289,7 +289,9 @@ const SUPABASE_KEY = "sb_publishable_sWU3nxqG1TiZ7hdu6bm5Xg_0at1AMEr";
 let db;
 
 try {
-  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
+  });
 } catch(e) {
   console.error("Supabase initialization error:", e);
 }
@@ -632,7 +634,7 @@ function resumeAvoid() {
     if(e.key==="ArrowRight") avoidState.x = Math.min(85, avoidState.x+10); 
     avoidState.player.style.left = avoidState.x+"%"; 
   };
-  avoidState.arena.ontouchmove = e => move(e.touches[0].clientX); 
+  avoidState.arena.ontouchmove = e => { move(e.touches[0].clientX); e.preventDefault(); };
   avoidState.arena.onmousemove = e => move(e.clientX);
 }
 
@@ -650,8 +652,8 @@ function showReviveMenu() {
   m.innerHTML = `
     <h3>اصطدام! 💥</h3>
     <p>تبقى لك ${time} ثانية. هل تريد المتابعة؟</p>
-    <button class="primary" style="margin-bottom:10px" id="btnRevive">🎥 شاهد إعلاناً للنجاة</button>
-    <button class="secondary" id="btnGiveUp">استسلام</button>
+    <button class="primary" type="button" style="margin-bottom:10px" id="btnRevive">🎥 شاهد إعلاناً للنجاة</button>
+    <button class="secondary" type="button" id="btnGiveUp">استسلام</button>
   `;
   avoidState.arena.appendChild(m);
   
