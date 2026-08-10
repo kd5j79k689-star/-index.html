@@ -252,14 +252,13 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let mode = "register", playMode = "classic", mainTimer = null, time = 30, ri = 0, locked = false;
 let roundScore = 0, roundXp = 0, roundCoins = 0;
-// تمت إضافة التذاكر (tickets) للحالة
 let S = {user: null, name: "", score: 0, xp: 0, coins: 0, level: 0, streak: 0, best: 0, tickets: 0};
 
 let activeIntervals = [];
 let activeTimeouts = [];
 
 const LV = [["سهل", 1], ["متوسط", 1.45], ["صعب", 2], ["خبير", 2.7]];
-const G = ["target", "avoid", "reaction"]; // تم اختصار الألعاب لسهولة الكود، يمكنك إضافة الباقي
+const G = ["target", "avoid", "reaction"];
 const $ = id => document.getElementById(id);
 
 function toast(t) {
@@ -303,7 +302,7 @@ async function loadPlayer() {
   const r = await db.from("players").select("*").eq("player_key", S.user.id).maybeSingle();
   if(!r.data) {
     const insertResult = await db.from("players").insert({
-      player_key: S.user.id, username: S.name || "لاعب", tickets: 3 // 3 تذاكر مجانية للمستخدم الجديد
+      player_key: S.user.id, username: S.name || "لاعب", tickets: 3
     }).select("*").single();
     if(!insertResult.error) r.data = insertResult.data;
   }
@@ -359,7 +358,7 @@ function startRound() {
     if(S.tickets <= 0) return toast("رصيد التذاكر غير كافٍ");
     S.tickets--; // خصم التذكرة
     save(); update();
-    show("play"); // <-- هذا هو السطر الذي كان مفقوداً لإظهار شاشة اللعب
+    show("play"); // إظهار شاشة اللعب فور خصم التذكرة
     startAvoidMarathon();
   } else {
     ri = 0; roundScore = roundXp = roundCoins = 0; 
@@ -367,7 +366,6 @@ function startRound() {
   }
 }
 
-// ---- محاكاة الإعلانات ----
 function simulateAd(callback) {
   $("adScreen").classList.remove("hidden");
   let s = 5;
@@ -394,10 +392,9 @@ function buyTickets() {
   S.tickets += 3; save(); update();
 }
 
-// ---- الألعاب المصغرة المبسطة للتمرين ----
 function next() {
   cleanupGameEvents();
-  if(ri >= 3) return finishClassic(); // 3 العاب للتجربة
+  if(ri >= 3) return finishClassic();
   locked = false; time = 30; 
   $("counter").textContent = `تدريب ${ri + 1} / 3`; 
   $("gameArea").innerHTML = `<div class="card gamebox"><div class="gameTitle"><h2>التمرين</h2><p id="gameDesc"></p></div><div class="arena" id="arena"></div></div>`;
@@ -434,7 +431,6 @@ function gameReaction() { let a = setupBase("انتظر الأخضر."); registe
 function ok() { if(locked) return; locked=true; roundScore+=100; clearInterval(mainTimer); registerTimeout(()=>{ri++; next();}, 500); }
 function finishClassic() { $("resultTitle").textContent="انتهى التدريب"; show("result"); }
 
-// ---- وضع البطولة (البقاء وتخطي العقبات مع إعلانات النجاة) ----
 let avoidState = { x: 46, obs: [], player: null, arena: null, speed: 5, spawn: 500, revived: false };
 
 function startAvoidMarathon() {
@@ -488,7 +484,6 @@ function resumeAvoid() {
 function handleCollision() {
   locked = true; clearInterval(mainTimer); cleanupGameEvents();
   
-  // نظام الإنعاش (Extra Life) بمشاهدة إعلان مرة واحدة في الجولة
   if(!avoidState.revived && time > 0) {
     showReviveMenu();
   } else {
@@ -510,7 +505,6 @@ function showReviveMenu() {
     simulateAd(() => {
       m.remove();
       avoidState.revived = true;
-      // تنظيف العقبات القريبة جداً ليعطيه فرصة
       avoidState.obs.forEach(o => { if(o) o.remove(); }); avoidState.obs = [];
       toast("تم الإنعاش! استعد...");
       setTimeout(resumeAvoid, 1000);
