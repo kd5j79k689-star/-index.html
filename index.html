@@ -28,7 +28,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .input:focus{border-color:var(--g)}
 .primary,.secondary{width:100%;padding:14px;border-radius:15px;font-weight:900;margin-top:10px}
 .primary{background:linear-gradient(135deg,#48efaa,#19c979);color:#04120c}
-.secondary{background:#14253b;border:1px solid #29415f}
+.secondary{background:#14253b;border:1px solid #29415f; color: #f5f7ff;}
 .switch{margin-top:11px;background:transparent;color:#79efbd;font-size:12px}
 .muted{color:var(--m);font-size:12px;line-height:1.7}
 
@@ -70,14 +70,14 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 .gameTitle{text-align:center}
 .gameTitle h2{font-size:20px;margin:4px}
 .gameTitle p{margin:0;color:var(--m);font-size:11px}
-.arena{height:315px;margin-top:12px;border-radius:18px;background:radial-gradient(circle at 50% 20%,#12243c,#07111e 70%);border:1px solid #203653;position:relative;overflow:hidden; touch-action: none; /* منع التمرير على اللمس للألعاب */}
+.arena{height:315px;margin-top:12px;border-radius:18px;background:radial-gradient(circle at 50% 20%,#12243c,#07111e 70%);border:1px solid #203653;position:relative;overflow:hidden; touch-action: none;}
 
 /* عناصر الألعاب */
 .target{position:absolute;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fff,#35e79a 35%,#0ca76b);color:#03130b;font-weight:1000;box-shadow:0 0 25px #35e79a66}
 .bomb,.coin,.player,.obstacle,.gate{position:absolute}
 .bomb{border-radius:50%;font-size:26px;background:transparent; display:grid; place-items:center;}
 .coin{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fff29b,#f1a800);color:#4b2b00;box-shadow:0 0 20px #ffd45a66; font-size: 20px;}
-.player{width:45px;height:45px;border-radius:13px;background:linear-gradient(135deg,#63b7ff,#765dff);display:grid;place-items:center;font-size:23px; box-shadow: 0 5px 15px rgba(99, 183, 255, 0.4);}
+.player{width:45px;height:45px;border-radius:13px;background:linear-gradient(135deg,#63b7ff,#765dff);display:grid;place-items:center;font-size:23px; box-shadow: 0 5px 15px rgba(99, 183, 255, 0.4); z-index: 10;}
 .obstacle{border-radius:8px;background:linear-gradient(135deg,#ff5870,#8b1730); box-shadow: 0 0 10px rgba(255, 88, 112, 0.5);}
 .gate{width:60px;height:60px;border:4px solid var(--g);border-radius:15px;display:grid;place-items:center;color:var(--g); font-size: 30px;}
 .memGrid,.lockGrid{display:grid;gap:8px;padding:15px}
@@ -126,7 +126,7 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
       <div class="mini">⚡</div>
       <div>
         <h2>تحديات سريعة</h2>
-        <small>PRO • 30 ثانية</small>
+        <small>PRO • الأطوار المتعددة</small>
       </div>
     </div>
     <b id="levelBadge" style="background: var(--l); padding: 5px 12px; border-radius: 12px; font-size: 12px;">سهل</b>
@@ -151,21 +151,26 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
     </div>
     <div class="card hero">
       <div class="emoji">🏆</div>
-      <h2>10 ألعاب مصغرة</h2>
-      <p>كل تحدي 30 ثانية، والصعوبة تتدرج من سهل إلى خبير.</p>
-      <button class="primary" onclick="levels()">اختيار المستوى 🎮</button>
+      <h2>العب الآن</h2>
+      <p>اختر طور اللعب الذي تفضله.</p>
+      
+      <div style="display:flex; gap:10px; margin-top:15px; flex-direction:column;">
+        <button class="primary" onclick="setMode('classic')">🎮 10 ألعاب مصغرة (كلاسيك)</button>
+        <button class="secondary" style="margin-top:0;" onclick="setMode('avoid')">🚫 بقاء: تخطي العقبات (30ث)</button>
+      </div>
     </div>
   </section>
 
   <section id="levels" class="hidden">
-    <div class="title">اختر الصعوبة</div>
+    <div class="title" id="levelsTitle">اختر الصعوبة</div>
     <div class="levels">
       <button class="level active" onclick="setLevel(0)"><h3>🟢 سهل</h3><p>بداية مناسبة للجميع</p></button>
       <button class="level" onclick="setLevel(1)"><h3>🔵 متوسط</h3><p>سرعة أعلى</p></button>
-      <button class="level" onclick="setLevel(2)"><h3>🟠 صعب</h3><p>أهداف أصغر وخدع</p></button>
-      <button class="level" onclick="setLevel(3)"><h3>🔴 خبير</h3><p>أقصى تحدي</p></button>
+      <button class="level" onclick="setLevel(2)"><h3>🟠 صعب</h3><p>تحدي قوي</p></button>
+      <button class="level" onclick="setLevel(3)"><h3>🔴 خبير</h3><p>أقصى مستوى</p></button>
     </div>
     <button class="primary" onclick="startRound()" style="margin-top: 15px;">ابدأ الجولة 🔥</button>
+    <button class="secondary" onclick="home()" style="margin-top: 10px;">رجوع</button>
   </section>
 
   <section id="play" class="hidden">
@@ -185,11 +190,11 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 
   <section id="result" class="hidden">
     <div class="card result">
-      <div class="big">🏆</div>
-      <h2>انتهت الجولة!</h2>
+      <div class="big" id="resultEmoji">🏆</div>
+      <h2 id="resultTitle">انتهت الجولة!</h2>
       <p id="resultText" class="muted"></p>
       <div class="reward">🪙 +<span id="earnedCoins">0</span> • ⭐ +<span id="earnedXp">0</span> XP</div>
-      <button class="primary" onclick="startRound()">جولة جديدة 🔄</button>
+      <button class="primary" onclick="startRound()">إعادة اللعب 🔄</button>
       <button class="secondary" onclick="home()">الرئيسية 🏠</button>
     </div>
   </section>
@@ -197,17 +202,16 @@ button:disabled {opacity: 0.5; cursor: not-allowed;}
 <div id="toast" class="toast"></div>
 
 <script>
-// الإعدادات وقاعدة البيانات
 const SUPABASE_URL = "https://hchporijrjgmcfayobpv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_sWU3nxqG1TiZ7hdu6bm5Xg_0at1AMEr";
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // المتغيرات العامة للعبة
-let mode = "register", mainTimer = null, time = 30, ri = 0, locked = false;
+let mode = "register", playMode = "classic", mainTimer = null, time = 30, ri = 0, locked = false;
 let roundScore = 0, roundXp = 0, roundCoins = 0;
 let S = {user: null, name: "", score: 0, xp: 0, coins: 0, level: 0, streak: 0, best: 0};
 
-// إدارة المؤقتات والأحداث الخاصة بكل لعبة مصغرة لمنع التسرب (Memory Leaks)
+// إدارة المؤقتات والأحداث لمنع التسرب (Memory Leaks)
 let activeIntervals = [];
 let activeTimeouts = [];
 
@@ -217,17 +221,13 @@ const $ = id => document.getElementById(id);
 
 // أدوات مساعدة
 function toast(t) {
-  $("toast").textContent = t;
-  $("toast").classList.add("show");
-  clearTimeout(window.tt);
-  window.tt = setTimeout(() => $("toast").classList.remove("show"), 2500);
+  $("toast").textContent = t; $("toast").classList.add("show");
+  clearTimeout(window.tt); window.tt = setTimeout(() => $("toast").classList.remove("show"), 2500);
 }
-
 function show(id) {
   ["home", "levels", "play", "result"].forEach(x => $(x).classList.add("hidden"));
   $(id).classList.remove("hidden");
 }
-
 function switchAuth() {
   mode = mode === "register" ? "login" : "register";
   $("nameBox").classList.toggle("hidden", mode === "login");
@@ -236,45 +236,31 @@ function switchAuth() {
   $("authMsg").textContent = "";
 }
 
-// المصادقة
+// المصادقة (Auth)
 async function auth() {
-  const email = $("email").value.trim();
-  const pass = $("password").value;
-  const name = $("name").value.trim();
-
+  const email = $("email").value.trim(), pass = $("password").value, name = $("name").value.trim();
   if(!email || !pass) return toast("أدخل البريد وكلمة المرور");
   if(pass.length < 6) return toast("كلمة المرور يجب أن تكون 6 أحرف على الأقل");
   if(mode === "register" && !name) return toast("اكتب اسم اللاعب");
 
-  $("authBtn").disabled = true;
-  $("authMsg").textContent = "جاري الاتصال...";
-
+  $("authBtn").disabled = true; $("authMsg").textContent = "جاري الاتصال...";
   try {
     let result;
     if(mode === "register") {
       result = await db.auth.signUp({ email, password: pass, options: { data: { username: name } } });
       if(result.error) throw result.error;
-      if(!result.data.user) throw new Error("لم يتم إنشاء حساب.");
       if(!result.data.session) {
         $("authMsg").textContent = "تم إنشاء الحساب. إذا كان تأكيد البريد مفعلاً، أكد بريدك ثم سجل الدخول.";
-        toast("أكد البريد ثم سجل الدخول");
-        switchAuth();
-        return;
+        switchAuth(); return;
       }
-      S.user = result.data.user;
-      S.name = name;
+      S.user = result.data.user; S.name = name;
     } else {
       result = await db.auth.signInWithPassword({ email, password: pass });
       if(result.error) throw result.error;
-      if(!result.data.session || !result.data.user) throw new Error("تمت محاولة الدخول لكن لم يتم إنشاء جلسة.");
-      S.user = result.data.user;
-      S.name = result.data.user.user_metadata?.username || "";
+      S.user = result.data.user; S.name = result.data.user.user_metadata?.username || "";
     }
-    await loadPlayer();
-    openGame();
-    $("authMsg").textContent = "";
+    await loadPlayer(); openGame(); $("authMsg").textContent = "";
   } catch(e) {
-    console.error("AUTH ERROR:", e);
     $("authMsg").textContent = "خطأ: " + (e.message || "تعذر تسجيل الدخول");
     toast(e.message || "تعذر تسجيل الدخول");
   } finally {
@@ -283,75 +269,69 @@ async function auth() {
 }
 
 async function loadPlayer() {
-  if(!S.user || !S.user.id) throw new Error("لم يتم العثور على حساب المستخدم.");
   const r = await db.from("players").select("*").eq("player_key", S.user.id).maybeSingle();
-  if(r.error) throw r.error;
-
   if(!r.data) {
     const playerName = S.name || S.user.user_metadata?.username || (S.user.email ? S.user.email.split("@")[0] : "لاعب");
     const insertResult = await db.from("players").insert({
       player_key: S.user.id, username: playerName, xp: 0, coins: 0, score: 0, level: 0, streak: 0, best_streak: 0
     }).select("*").single();
-    if(insertResult.error) throw insertResult.error;
-    r.data = insertResult.data;
+    if(!insertResult.error) r.data = insertResult.data;
   }
-  const d = r.data;
+  const d = r.data || {};
   S.name = d.username || S.name || "لاعب";
-  S.score = Number(d.score) || 0;
-  S.xp = Number(d.xp) || 0;
-  S.coins = Number(d.coins) || 0;
+  S.score = Number(d.score) || 0; S.xp = Number(d.xp) || 0; S.coins = Number(d.coins) || 0;
   S.level = Math.max(0, Math.min(3, Number(d.level) || 0));
-  S.streak = Number(d.streak) || 0;
-  S.best = Number(d.best_streak) || 0;
+  S.streak = Number(d.streak) || 0; S.best = Number(d.best_streak) || 0;
 }
 
 async function save() {
   if(!S.user?.id) return;
-  const r = await db.from("players").update({
+  await db.from("players").update({
     username: S.name, xp: S.xp, coins: S.coins, score: S.score, level: S.level, streak: S.streak, best_streak: S.best
   }).eq("player_key", S.user.id);
-  if(r.error) {
-    console.error("SAVE ERROR:", r.error);
-    toast("تعذر حفظ التقدم: " + r.error.message);
-  }
 }
 
-// الواجهة والتنقل
+// الواجهة
 function openGame() { $("login").classList.add("hidden"); $("game").classList.remove("hidden"); update(); home(); }
 function update() { 
-  $("playerName").textContent = S.name; 
-  $("avatar").textContent = S.name[0]?.toUpperCase() || "A"; 
-  $("score").textContent = S.score; 
-  $("xp").textContent = S.xp; 
-  $("best").textContent = S.best; 
-  $("meta").textContent = `XP ${S.xp} • 🪙 ${S.coins}`; 
-  $("levelBadge").textContent = LV[S.level][0]; 
+  $("playerName").textContent = S.name; $("avatar").textContent = S.name[0]?.toUpperCase() || "A"; 
+  $("score").textContent = S.score; $("xp").textContent = S.xp; $("best").textContent = S.best; 
+  $("meta").textContent = `XP ${S.xp} • 🪙 ${S.coins}`; $("levelBadge").textContent = LV[S.level][0]; 
 }
 function home() { cleanupGameEvents(); clearInterval(mainTimer); show("home"); update(); }
+
+function setMode(m) {
+  playMode = m;
+  $("levelsTitle").textContent = playMode === 'classic' ? 'صعوبة الألعاب المصغرة' : 'صعوبة تخطي العقبات';
+  show("levels");
+}
+
 function levels() { show("levels"); }
 function setLevel(n) { S.level = n; document.querySelectorAll(".level").forEach((x, i) => x.classList.toggle("active", i === n)); update(); save(); }
 async function logout() { cleanupGameEvents(); clearInterval(mainTimer); await db.auth.signOut(); S = {user: null, name: "", score: 0, xp: 0, coins: 0, level: 0, streak: 0, best: 0}; $("game").classList.add("hidden"); $("login").classList.remove("hidden"); }
 
-// نظام تنظيف الموارد (لإصلاح Bugs تسرب الذاكرة والأحداث المتداخلة)
+// تنظيف الموارد
 function cleanupGameEvents() {
-  activeIntervals.forEach(clearInterval);
-  activeIntervals = [];
-  activeTimeouts.forEach(clearTimeout);
-  activeTimeouts = [];
+  activeIntervals.forEach(clearInterval); activeIntervals = [];
+  activeTimeouts.forEach(clearTimeout); activeTimeouts = [];
   document.onkeydown = null;
   const arena = $("arena");
-  if(arena) {
-    arena.onmousemove = null;
-    arena.ontouchmove = null;
-    arena.onclick = null;
-  }
+  if(arena) { arena.onmousemove = null; arena.ontouchmove = null; arena.onclick = null; }
 }
-
 function registerInterval(fn, delay) { const id = setInterval(fn, delay); activeIntervals.push(id); return id; }
 function registerTimeout(fn, delay) { const id = setTimeout(fn, delay); activeTimeouts.push(id); return id; }
 
-// نظام الجولات
-function startRound() { ri = 0; roundScore = roundXp = roundCoins = 0; show("play"); next(); }
+// بداية الجولات والتحكم بالأطوار
+function startRound() { 
+  ri = 0; roundScore = roundXp = roundCoins = 0; 
+  show("play"); 
+  if (playMode === 'classic') {
+    next(); 
+  } else if (playMode === 'avoid') {
+    startAvoidMarathon();
+  }
+}
+
 function title(t) {
   return {
     target: "🎯 صائد المربعات", bomb: "💣 تفجير القنابل", memory: "🧠 تذكّر المكان",
@@ -360,18 +340,15 @@ function title(t) {
   }[t];
 }
 
+// ---- الطور الكلاسيكي (10 ألعاب) ----
 function next() {
   cleanupGameEvents();
-  if(ri >= 10) return finish();
-  locked = false; 
-  time = 30; 
+  if(ri >= 10) return finishClassic();
+  locked = false; time = 30; 
   $("counter").textContent = `التحدي ${ri + 1} / 10`; 
   $("ct").textContent = title(G[ri]); 
   $("feedback").textContent = ""; 
-  
-  // إعادة بناء واجهة اللعبة لتنظيف الرسوميات السابقة
   $("gameArea").innerHTML = `<div class="card gamebox"><div class="gameTitle"><h2>${title(G[ri])}</h2><p id="gameDesc"></p></div><div class="arena" id="arena"></div></div>`;
-  
   render(G[ri]); 
   startTimer();
 }
@@ -380,94 +357,50 @@ function startTimer() {
   clearInterval(mainTimer);
   mainTimer = setInterval(() => {
     time--; 
-    $("timer").textContent = time; 
-    $("timerBar").style.width = (time / 30 * 100) + "%"; 
+    $("timer").textContent = time; $("timerBar").style.width = (time / 30 * 100) + "%"; 
     $("timer").classList.toggle("danger", time <= 7); 
     if(time <= 0) { 
-      clearInterval(mainTimer); 
-      mainTimer = null; 
-      fail(); 
+      clearInterval(mainTimer); mainTimer = null; 
+      if (playMode === 'classic') fail();
+      else if (playMode === 'avoid') winAvoidMarathon();
     }
   }, 1000);
-  $("timer").textContent = 30; 
-  $("timerBar").style.width = "100%";
+  $("timer").textContent = 30; $("timerBar").style.width = "100%";
 }
 
 function fail() {
-  if(locked) return; 
-  locked = true; 
-  cleanupGameEvents();
-  $("feedback").textContent = "انتهى الوقت ⏱️"; 
-  $("feedback").style.color = "var(--r)";
-  S.streak = 0; 
-  registerTimeout(() => { ri++; next(); }, 800);
+  if(locked) return; locked = true; cleanupGameEvents();
+  $("feedback").textContent = "انتهى الوقت ⏱️"; $("feedback").style.color = "var(--r)";
+  S.streak = 0; registerTimeout(() => { ri++; next(); }, 800);
 }
 
 function ok(points) {
-  if(locked) return; 
-  locked = true; 
-  clearInterval(mainTimer); 
-  cleanupGameEvents();
-  
-  let p = Math.round(points * LV[S.level][1]);
-  let bonus = Math.round(p * Math.min(S.streak, 10) * 0.08);
-  let total = p + bonus;
-  
-  S.streak++; 
-  S.best = Math.max(S.best, S.streak); 
-  S.score += total; 
-  S.xp += Math.max(2, Math.round(total / 2)); 
-  S.coins += Math.max(1, Math.round(total / 15)); 
-  
-  roundScore += total; 
-  roundXp += Math.max(2, Math.round(total / 2)); 
-  roundCoins += Math.max(1, Math.round(total / 15)); 
-  
-  $("feedback").textContent = `نجاح! +${total} نقطة 🔥`; 
-  $("feedback").style.color = "var(--g)";
-  update(); 
-  save(); 
-  registerTimeout(() => { ri++; next(); }, 700);
+  if(locked) return; locked = true; clearInterval(mainTimer); cleanupGameEvents();
+  let p = Math.round(points * LV[S.level][1]), bonus = Math.round(p * Math.min(S.streak, 10) * 0.08), total = p + bonus;
+  S.streak++; S.best = Math.max(S.best, S.streak); S.score += total; 
+  S.xp += Math.max(2, Math.round(total / 2)); S.coins += Math.max(1, Math.round(total / 15)); 
+  roundScore += total; roundXp += Math.max(2, Math.round(total / 2)); roundCoins += Math.max(1, Math.round(total / 15)); 
+  $("feedback").textContent = `نجاح! +${total} نقطة 🔥`; $("feedback").style.color = "var(--g)";
+  update(); save(); registerTimeout(() => { ri++; next(); }, 700);
 }
 
 function bad() {
-  if(locked) return; 
-  locked = true; 
-  clearInterval(mainTimer); 
-  cleanupGameEvents();
-  
-  S.streak = 0; 
-  $("feedback").textContent = "خطأ ❌"; 
-  $("feedback").style.color = "var(--r)";
-  save(); 
-  registerTimeout(() => { ri++; next(); }, 700);
+  if(locked) return; locked = true; clearInterval(mainTimer); cleanupGameEvents();
+  S.streak = 0; $("feedback").textContent = "خطأ ❌"; $("feedback").style.color = "var(--r)";
+  save(); registerTimeout(() => { ri++; next(); }, 700);
 }
 
-function setupBase(desc) {
-  $("gameDesc").textContent = desc;
-  return $("arena");
-}
+function setupBase(desc) { $("gameDesc").textContent = desc; return $("arena"); }
+function pos(e, s) { e.style.width = s + "px"; e.style.height = s + "px"; e.style.left = (5 + Math.random() * 80) + "%"; e.style.top = (5 + Math.random() * 75) + "%"; }
 
-function pos(e, s) {
-  e.style.width = s + "px"; 
-  e.style.height = s + "px"; 
-  e.style.left = (5 + Math.random() * 80) + "%"; 
-  e.style.top = (5 + Math.random() * 75) + "%";
-}
-
-// --- الألعاب المصغرة ---
-
+// الألعاب المصغرة
 function gameTarget() {
   let a = setupBase("اضغط الهدف الأخضر قبل أن يختفي.");
   let c = 0, max = [6, 9, 13, 17][S.level];
   function sp() {
-    if(locked) return;
-    a.innerHTML = ""; 
-    let t = document.createElement("button"); 
-    t.className = "target"; 
-    t.textContent = "+"; 
-    pos(t, [65, 52, 42, 34][S.level]); 
-    a.appendChild(t); 
+    if(locked) return; a.innerHTML = ""; 
+    let t = document.createElement("button"); t.className = "target"; t.textContent = "+"; 
+    pos(t, [65, 52, 42, 34][S.level]); a.appendChild(t); 
     t.onclick = () => { c++; c >= max ? ok(70 + c * 8) : sp(); };
   }
   sp();
@@ -477,15 +410,11 @@ function gameBomb() {
   let a = setupBase("اضغط الزرقاء وتجنب القنابل.");
   let c = 0, max = [4, 7, 10, 14][S.level];
   function sp() {
-    if(locked) return;
-    a.innerHTML = ""; 
+    if(locked) return; a.innerHTML = ""; 
     for(let i = 0; i < [3, 4, 6, 8][S.level]; i++) {
-      let b = document.createElement("button"); 
-      b.className = "bomb"; 
+      let b = document.createElement("button"); b.className = "bomb"; 
       let fake = Math.random() < 0.22 + S.level * 0.06; 
-      b.textContent = fake ? "💣" : "🔵"; 
-      pos(b, 48); 
-      a.appendChild(b); 
+      b.textContent = fake ? "💣" : "🔵"; pos(b, 48); a.appendChild(b); 
       b.onclick = () => fake ? bad() : (c++, c >= max ? ok(85 + c * 7) : sp());
     }
   }
@@ -495,37 +424,21 @@ function gameBomb() {
 function gameMemory() {
   let a = setupBase("احفظ المربعات المضيئة ثم اضغطها بنفس الترتيب.");
   let n = [3, 4, 5, 6][S.level];
-  let grid = document.createElement("div"); 
-  grid.className = "memGrid"; 
-  a.appendChild(grid); 
+  let grid = document.createElement("div"); grid.className = "memGrid"; a.appendChild(grid); 
   let cells = [], seq = [];
-  
   for(let i = 0; i < 9; i++) {
-    let c = document.createElement("button"); 
-    c.className = "tile"; 
-    grid.appendChild(c); 
-    cells.push(c);
+    let c = document.createElement("button"); c.className = "tile"; grid.appendChild(c); cells.push(c);
   }
-  
   while(seq.length < n) {
-    let x = Math.floor(Math.random() * 9); 
-    if(!seq.includes(x)) seq.push(x);
+    let x = Math.floor(Math.random() * 9); if(!seq.includes(x)) seq.push(x);
   }
-  
-  seq.forEach((x, i) => registerTimeout(() => {
-    if(!locked) cells[x].classList.add("show");
-  }, i * 250));
-  
+  seq.forEach((x, i) => registerTimeout(() => { if(!locked) cells[x].classList.add("show"); }, i * 250));
   registerTimeout(() => {
-    if(locked) return;
-    cells.forEach(c => c.classList.remove("show"));
+    if(locked) return; cells.forEach(c => c.classList.remove("show"));
     let k = 0;
     cells.forEach((c, i) => c.onclick = () => {
-      if(locked) return;
-      if(i !== seq[k]) return bad();
-      c.classList.add("show"); 
-      k++; 
-      if(k === n) ok(120 + n * 18);
+      if(locked) return; if(i !== seq[k]) return bad();
+      c.classList.add("show"); k++; if(k === n) ok(120 + n * 18);
     });
   }, n * 250 + 800);
 }
@@ -534,22 +447,13 @@ function gameLock() {
   let a = setupBase("اضغط الأرقام من الأصغر إلى الأكبر.");
   let n = [3, 4, 6, 9][S.level];
   let arr = [...Array(n)].map((_, i) => i + 1).sort(() => Math.random() - 0.5);
-  let box = document.createElement("div"); 
-  box.className = "lockGrid"; 
-  a.appendChild(box);
+  let box = document.createElement("div"); box.className = "lockGrid"; a.appendChild(box);
   let k = 1;
-  
   arr.forEach(v => {
-    let b = document.createElement("button"); 
-    b.className = "num"; 
-    b.textContent = v; 
+    let b = document.createElement("button"); b.className = "num"; b.textContent = v; 
     b.onclick = () => {
-      if(locked) return;
-      if(v !== k) return bad();
-      b.disabled = true; 
-      b.style.opacity = 0.3; 
-      k++; 
-      if(k > n) ok(110 + n * 18);
+      if(locked) return; if(v !== k) return bad();
+      b.disabled = true; b.style.opacity = 0.3; k++; if(k > n) ok(110 + n * 18);
     };
     box.appendChild(b);
   });
@@ -557,29 +461,14 @@ function gameLock() {
 
 function gameTraffic() {
   let a = setupBase("اضغط عندما تصبح الإشارة خضراء فقط.");
-  a.style.display = "flex";
-  a.style.alignItems = "center";
-  a.style.justifyContent = "center";
-  
-  let b = document.createElement("button"); 
-  b.className = "primary"; 
-  b.style.width = "80%";
-  b.style.fontSize = "20px";
-  a.appendChild(b); 
-  
+  a.style.display = "flex"; a.style.alignItems = "center"; a.style.justifyContent = "center";
+  let b = document.createElement("button"); b.className = "primary"; b.style.width = "80%"; b.style.fontSize = "20px"; a.appendChild(b); 
   let c = 0, max = [4, 6, 9, 12][S.level];
-  
   function sp() {
-    if(locked) return;
-    let green = Math.random() > 0.38; 
+    if(locked) return; let green = Math.random() > 0.38; 
     b.textContent = green ? "🟢 اضغط الآن" : "🔴 توقف"; 
-    b.style.background = green ? "linear-gradient(135deg, #48efaa, #19c979)" : "linear-gradient(135deg, #ff5870, #8b1730)";
-    b.style.color = "#fff";
-    
-    b.onclick = () => {
-      if(locked) return;
-      green ? (c++, c >= max ? ok(95 + c * 8) : sp()) : bad();
-    };
+    b.style.background = green ? "linear-gradient(135deg, #48efaa, #19c979)" : "linear-gradient(135deg, #ff5870, #8b1730)"; b.style.color = "#fff";
+    b.onclick = () => { if(locked) return; green ? (c++, c >= max ? ok(95 + c * 8) : sp()) : bad(); };
     if(!green) registerTimeout(sp, 650 - S.level * 80);
   }
   sp();
@@ -589,20 +478,12 @@ function gameOrder() {
   let a = setupBase("اضغط الأشكال من الأقل نقاطاً للأكثر.");
   let n = [3, 4, 5, 6][S.level];
   let arr = [...Array(n)].map((_, i) => i + 1).sort(() => Math.random() - 0.5);
-  let box = document.createElement("div"); 
-  box.className = "order"; 
-  a.appendChild(box); 
-  let k = 1;
-  
+  let box = document.createElement("div"); box.className = "order"; a.appendChild(box); let k = 1;
   arr.forEach(v => {
-    let b = document.createElement("button"); 
-    b.textContent = "●".repeat(v); 
+    let b = document.createElement("button"); b.textContent = "●".repeat(v); 
     b.onclick = () => {
-      if(locked) return;
-      if(v !== k) return bad();
-      b.disabled = true; 
-      k++; 
-      if(k > n) ok(125 + n * 18);
+      if(locked) return; if(v !== k) return bad();
+      b.disabled = true; k++; if(k > n) ok(125 + n * 18);
     };
     box.appendChild(b);
   });
@@ -610,182 +491,207 @@ function gameOrder() {
 
 function gameAvoid() {
   let a = setupBase("حرّك المربع الأزرق يميناً ويساراً لتجنب الأحمر.");
-  let p = document.createElement("div"); 
-  p.className = "player"; 
-  p.textContent = "🟦"; 
-  p.style.left = "46%"; 
-  p.style.bottom = "15px"; 
-  a.appendChild(p); 
-  
+  let p = document.createElement("div"); p.className = "player"; p.textContent = "🟦"; p.style.left = "46%"; p.style.bottom = "15px"; a.appendChild(p); 
   let x = 46, count = 0, obs = [];
-  
   function make() {
-    if(locked) return;
-    let o = document.createElement("div"); 
-    o.className = "obstacle"; 
-    o.style.width = "35px"; 
-    o.style.height = "35px"; 
-    o.style.left = (5 + Math.random() * 85) + "%"; 
-    o.style.top = "-40px"; 
-    a.appendChild(o); 
-    obs.push(o);
+    if(locked) return; let o = document.createElement("div"); o.className = "obstacle"; o.style.width = "35px"; o.style.height = "35px"; o.style.left = (5 + Math.random() * 85) + "%"; o.style.top = "-40px"; a.appendChild(o); obs.push(o);
   }
-  
   registerInterval(make, Math.max(330, 700 - S.level * 100));
-  
   registerInterval(() => {
     if(locked) return;
     obs.forEach(o => {
       o.style.top = o.offsetTop + 6 + S.level * 1.5 + "px"; 
       if(o.offsetTop > 230 && Math.abs(o.offsetLeft - p.offsetLeft) < 40) return bad(); 
-      if(o.offsetTop > 320) { 
-        o.remove(); 
-        count++; 
-        if(count >= [5, 8, 11, 15][S.level]) ok(150 + count * 10);
-      }
+      if(o.offsetTop > 320) { o.remove(); count++; if(count >= [5, 8, 11, 15][S.level]) ok(150 + count * 10); }
     });
   }, 45);
-  
-  function move(e) {
-    if(locked) return;
-    if(e.key === "ArrowLeft") x = Math.max(3, x - 10); 
-    if(e.key === "ArrowRight") x = Math.min(85, x + 10); 
-    p.style.left = x + "%";
+  function move(cx) {
+    if(locked) return; let r = a.getBoundingClientRect(); x = Math.max(3, Math.min(85, (cx - r.left) / r.width * 100 - 4)); p.style.left = x + "%";
   }
-  
-  document.onkeydown = move;
-  a.ontouchmove = e => {
-    if(locked) return;
-    let r = a.getBoundingClientRect(); 
-    x = Math.max(3, Math.min(85, (e.touches[0].clientX - r.left) / r.width * 100 - 4)); 
-    p.style.left = x + "%";
-  };
+  document.onkeydown = e => { if(locked) return; if(e.key === "ArrowLeft") x = Math.max(3, x - 10); if(e.key === "ArrowRight") x = Math.min(85, x + 10); p.style.left = x + "%"; };
+  a.ontouchmove = e => move(e.touches[0].clientX); a.onmousemove = e => move(e.clientX);
 } 
 
 function gameMaze() {
   let a = setupBase("حرّك الشخصية للوصول إلى البوابة.");
   let p = document.createElement("div"), g = document.createElement("div"); 
   p.className = "player"; p.textContent = "🧑"; p.style.left = "7%"; p.style.top = "7%"; 
-  g.className = "gate"; g.textContent = "🚪"; g.style.right = "7%"; g.style.bottom = "7%"; 
-  a.append(p, g); 
-  
-  // بناء جدران المتاهة
+  g.className = "gate"; g.textContent = "🚪"; g.style.right = "7%"; g.style.bottom = "7%"; a.append(p, g); 
   [["20%","20%","55%","18%"], ["25%","55%","18%","22%"], ["55%","45%","35%","16%"]].forEach(w => {
-    let d = document.createElement("div"); 
-    d.style.cssText = `position:absolute;left:${w[0]};top:${w[1]};width:${w[2]};height:${w[3]};background:#263e5c;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.3)`; 
-    a.appendChild(d);
+    let d = document.createElement("div"); d.style.cssText = `position:absolute;left:${w[0]};top:${w[1]};width:${w[2]};height:${w[3]};background:#263e5c;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.3)`; a.appendChild(d);
   });
-  
   let x = 7, y = 7;
   function mv(dx, dy) {
-    if(locked) return;
-    x = Math.max(2, Math.min(88, x + dx)); 
-    y = Math.max(2, Math.min(88, y + dy)); 
-    p.style.left = x + "%"; 
-    p.style.top = y + "%"; 
-    if(x > 78 && y > 75) ok(180);
+    if(locked) return; x = Math.max(2, Math.min(88, x + dx)); y = Math.max(2, Math.min(88, y + dy)); 
+    p.style.left = x + "%"; p.style.top = y + "%"; if(x > 78 && y > 75) ok(180);
   }
-  
   document.onkeydown = e => {
-    if(e.key === "ArrowLeft") mv(-6, 0); 
-    if(e.key === "ArrowRight") mv(6, 0); 
-    if(e.key === "ArrowUp") mv(0, -6); 
-    if(e.key === "ArrowDown") mv(0, 6);
+    if(e.key === "ArrowLeft") mv(-6, 0); if(e.key === "ArrowRight") mv(6, 0); if(e.key === "ArrowUp") mv(0, -6); if(e.key === "ArrowDown") mv(0, 6);
   };
-  
   a.onclick = e => {
-    if(locked) return;
-    let r = a.getBoundingClientRect(), tx = (e.clientX - r.left) / r.width * 100, ty = (e.clientY - r.top) / r.height * 100; 
-    mv(tx > x ? 7 : -7, ty > y ? 7 : -7);
+    if(locked) return; let r = a.getBoundingClientRect(), tx = (e.clientX - r.left) / r.width * 100, ty = (e.clientY - r.top) / r.height * 100; mv(tx > x ? 7 : -7, ty > y ? 7 : -7);
   };
 }
 
 function gameCoins() {
   let a = setupBase("حرّك اللاعب لجمع العملات بسرعة.");
-  let p = document.createElement("div"); 
-  p.className = "player"; 
-  p.textContent = "🧑"; 
-  p.style.left = "46%"; 
-  p.style.top = "45%"; 
-  a.appendChild(p); 
-  
+  let p = document.createElement("div"); p.className = "player"; p.textContent = "🧑"; p.style.left = "46%"; p.style.top = "45%"; a.appendChild(p); 
   let c = 0, x = 46, y = 45, max = [5, 8, 11, 15][S.level];
-  
   function sp() {
-    if(locked) return; 
-    let q = document.createElement("button"); 
-    q.className = "coin"; 
-    q.textContent = "🪙"; 
-    pos(q, 42); 
-    a.appendChild(q); 
-    q.onmouseenter = q.onclick = () => { // جعل التجميع أسهل بالمرور فوقه
-      if(locked) return;
-      c++; 
-      q.remove(); 
-      c >= max ? ok(120 + c * 12) : sp();
+    if(locked) return; let q = document.createElement("button"); q.className = "coin"; q.textContent = "🪙"; pos(q, 42); a.appendChild(q); 
+    q.onmouseenter = q.onclick = () => {
+      if(locked) return; c++; q.remove(); c >= max ? ok(120 + c * 12) : sp();
     };
   }
   sp();
-  
   function move(cx, cy) {
-    if(locked) return;
-    let r = a.getBoundingClientRect(); 
-    x = Math.max(2, Math.min(90, (cx - r.left) / r.width * 100 - 4)); 
-    y = Math.max(2, Math.min(90, (cy - r.top) / r.height * 100 - 4)); 
-    p.style.left = x + "%"; 
-    p.style.top = y + "%";
+    if(locked) return; let r = a.getBoundingClientRect(); 
+    x = Math.max(2, Math.min(90, (cx - r.left) / r.width * 100 - 4)); y = Math.max(2, Math.min(90, (cy - r.top) / r.height * 100 - 4)); 
+    p.style.left = x + "%"; p.style.top = y + "%";
   }
-  
-  a.onmousemove = e => move(e.clientX, e.clientY);
-  a.ontouchmove = e => move(e.touches[0].clientX, e.touches[0].clientY);
+  a.onmousemove = e => move(e.clientX, e.clientY); a.ontouchmove = e => move(e.touches[0].clientX, e.touches[0].clientY);
 }
 
 function gameReaction() {
   let a = setupBase("انتظر ظهور اللون الأخضر ثم اضغط بأسرع ما يمكن.");
-  let d = document.createElement("div"); 
-  d.className = "center"; 
-  d.innerHTML = '<div id="react" style="font-size:100px; margin-bottom: 20px;">🔴</div><button id="rb" class="secondary" style="font-size:18px;">انتظر...</button>'; 
-  a.appendChild(d);
-  
+  let d = document.createElement("div"); d.className = "center"; 
+  d.innerHTML = '<div id="react" style="font-size:100px; margin-bottom: 20px;">🔴</div><button id="rb" class="secondary" style="font-size:18px;">انتظر...</button>'; a.appendChild(d);
   let go = false, start = 0;
-  
   $("rb").onclick = () => {
-    if(locked) return;
-    if(!go) return bad(); 
-    let timeTaken = performance.now() - start;
-    ok(240 + Math.max(0, 900 - timeTaken));
+    if(locked) return; if(!go) return bad(); 
+    ok(240 + Math.max(0, 900 - (performance.now() - start)));
   };
-  
   registerTimeout(() => {
-    if(locked) return; 
-    go = true; 
-    start = performance.now(); 
-    $("react").textContent = "🟢"; 
-    $("rb").textContent = "اضغط الآن! ⚡";
-    $("rb").className = "primary";
+    if(locked) return; go = true; start = performance.now(); 
+    $("react").textContent = "🟢"; $("rb").textContent = "اضغط الآن! ⚡"; $("rb").className = "primary";
   }, 1000 + Math.random() * 2500);
 }
 
 function render(t) {
-  ({
-    target: gameTarget, bomb: gameBomb, memory: gameMemory, lock: gameLock, 
-    traffic: gameTraffic, order: gameOrder, avoid: gameAvoid, maze: gameMaze, 
-    coins: gameCoins, reaction: gameReaction
-  }[t])();
+  ({ target: gameTarget, bomb: gameBomb, memory: gameMemory, lock: gameLock, traffic: gameTraffic, order: gameOrder, avoid: gameAvoid, maze: gameMaze, coins: gameCoins, reaction: gameReaction }[t])();
 }
 
-function finish() {
-  cleanupGameEvents();
-  clearInterval(mainTimer); 
-  mainTimer = null; 
+function finishClassic() {
+  cleanupGameEvents(); clearInterval(mainTimer); mainTimer = null; 
+  $("resultTitle").textContent = "انتهت الجولة!";
+  $("resultEmoji").textContent = "🏆";
   $("resultText").textContent = `حققت ${roundScore} نقطة خلال 10 تحديات. أفضل سلسلة: ${S.best}.`; 
-  $("earnedCoins").textContent = roundCoins; 
-  $("earnedXp").textContent = roundXp; 
-  show("result"); 
-  save();
+  $("earnedCoins").textContent = roundCoins; $("earnedXp").textContent = roundXp; 
+  show("result"); save();
 }
 
-// تهيئة الجلسة
+
+// ---- الطور الجديد: تخطي العقبات (وضع البقاء) ----
+
+function startAvoidMarathon() {
+  cleanupGameEvents();
+  locked = false; time = 30; 
+  $("counter").textContent = "وضع البقاء لـ 30 ثانية"; 
+  $("ct").textContent = "🚫 تخطي العقبات (الخاص)"; 
+  $("feedback").textContent = "استعد..."; 
+  
+  $("gameArea").innerHTML = `<div class="card gamebox"><div class="gameTitle"><h2>تخطي العقبات</h2><p id="gameDesc">ابقَ حياً حتى ينتهي المؤقت!</p></div><div class="arena" id="arena"></div></div>`;
+  
+  runAvoidMarathon();
+  startTimer(); // سيستدعي winAvoidMarathon إذا وصل لـ 0
+}
+
+function runAvoidMarathon() {
+  let a = $("arena");
+  let p = document.createElement("div"); p.className = "player"; p.textContent = "🟦"; p.style.left = "46%"; p.style.bottom = "15px"; a.appendChild(p); 
+  
+  let x = 46, obs = [], dodged = 0;
+  
+  function make() {
+    if(locked) return; 
+    let o = document.createElement("div"); o.className = "obstacle"; o.style.width = "35px"; o.style.height = "35px"; 
+    o.style.left = (5 + Math.random() * 85) + "%"; o.style.top = "-40px"; 
+    a.appendChild(o); obs.push(o);
+  }
+  
+  // سرعة نزول وكثافة العقبات حسب المستوى
+  let spawnRate = [600, 450, 300, 200][S.level];
+  let fallSpeed = [5, 7, 9, 11][S.level];
+  
+  registerInterval(make, spawnRate);
+  
+  registerInterval(() => {
+    if(locked) return;
+    obs.forEach((o, i) => {
+      if(!o || o.hasAttribute('dead')) return;
+      o.style.top = o.offsetTop + fallSpeed + "px"; 
+      
+      // الكشف عن الاصطدام
+      if(o.offsetTop > 230 && o.offsetTop < 280 && Math.abs(o.offsetLeft - p.offsetLeft) < 40) { 
+        return loseAvoidMarathon(); 
+      } 
+      
+      // تجاوز العقبة بنجاح
+      if(o.offsetTop > 320) { 
+        o.setAttribute('dead', 'true');
+        o.remove(); 
+        obs[i] = null; 
+        dodged++; 
+        $("feedback").textContent = `تخطيت: ${dodged} عقبات`;
+        $("feedback").style.color = "var(--b)";
+      }
+    });
+  }, 40);
+  
+  function move(cx) {
+    if(locked) return; 
+    let r = a.getBoundingClientRect(); 
+    x = Math.max(3, Math.min(85, (cx - r.left) / r.width * 100 - 4)); 
+    p.style.left = x + "%";
+  }
+  
+  document.onkeydown = e => { 
+    if(locked) return; 
+    if(e.key === "ArrowLeft") x = Math.max(3, x - 10); 
+    if(e.key === "ArrowRight") x = Math.min(85, x + 10); 
+    p.style.left = x + "%"; 
+  };
+  a.ontouchmove = e => move(e.touches[0].clientX); 
+  a.onmousemove = e => move(e.clientX);
+}
+
+function loseAvoidMarathon() {
+  if(locked) return; locked = true; 
+  clearInterval(mainTimer); cleanupGameEvents();
+  S.streak = 0;
+  
+  $("resultTitle").textContent = "للأسف اصطدمت!";
+  $("resultEmoji").textContent = "💥";
+  $("resultText").textContent = `صمدت لمدة ${30 - time} ثانية في مستوى ${LV[S.level][0]}. حاول مرة أخرى لتصمد 30 ثانية كاملة!`;
+  $("earnedCoins").textContent = 0; 
+  $("earnedXp").textContent = 0; 
+  
+  show("result"); save();
+}
+
+function winAvoidMarathon() {
+  if(locked) return; locked = true; 
+  clearInterval(mainTimer); cleanupGameEvents();
+  
+  let basePoints = 300 + (S.level * 150); // نقاط كبيرة للنجاة
+  let xpEarned = Math.max(5, Math.round(basePoints / 2));
+  let coinsEarned = Math.max(2, Math.round(basePoints / 15));
+  
+  S.score += basePoints; 
+  S.xp += xpEarned; 
+  S.coins += coinsEarned;
+  
+  $("resultTitle").textContent = "بطل البقاء!";
+  $("resultEmoji").textContent = "🎖️";
+  $("resultText").textContent = `نجحت في الصمود لـ 30 ثانية كاملة في مستوى ${LV[S.level][0]}!`;
+  $("earnedCoins").textContent = coinsEarned; 
+  $("earnedXp").textContent = xpEarned; 
+  
+  show("result"); save();
+}
+
+
+// تهيئة الجلسة عند فتح الصفحة
 (async () => {
   try {
     const r = await db.auth.getSession();
@@ -797,8 +703,7 @@ function finish() {
       openGame();
     }
   } catch(e) {
-    console.error("SESSION ERROR:", e);
-    toast(e.message || "تعذر تحميل الحساب");
+    toast("لم يتم تسجيل الدخول بعد");
   }
 })();
 </script>
